@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TPA Khairu Ummah</title>
+<meta name="description" content="TPA Khairu Ummah, the Qur'an class for children of Keluarga Pelajar Islam Indonesia Sydney (KPII Sydney), since 1995.">
+<meta property="og:title" content="TPA Khairu Ummah">
+<meta property="og:description" content="Qur'an classes for children by KPII Sydney, with interactive teaching materials.">
+<meta property="og:image" content="images/islamic-calendar-thumbnail.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --green:#116b3c; --green-dark:#0c5530; --green-text:#0f6b38;
+  --yellow:#f4c044; --ink:#222; --muted:#555; --paper:#ffffff;
+  --head:"Poppins","Segoe UI",system-ui,sans-serif;
+  --body:Arial,"Helvetica Neue",system-ui,sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);line-height:1.55}
+a{color:inherit}
+.wrap{width:100%;max-width:820px;margin:0 auto;padding-inline:16px}
+
+/* top bar */
+.top{position:sticky;top:0;z-index:10;background:var(--green);color:#fff}
+.top .in{display:flex;align-items:center;gap:14px;min-height:56px;max-width:1200px;margin:0 auto;padding-inline:16px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--head);font-weight:600}
+.logo img{height:34px;width:auto;display:block}
+.top nav{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap}
+.top nav a{font-family:var(--head);font-size:.92rem;text-decoration:none;padding:6px 12px;border-radius:999px}
+.top nav a:hover{background:rgba(255,255,255,.14)}
+
+/* hero: your photo sits on top of a green pattern, so the page still looks right without it */
+.hero{position:relative;color:#fff;min-height:clamp(220px,30vw,340px);display:flex;align-items:center;
+  background-color:var(--green-dark);
+  background-image:
+    linear-gradient(rgba(0,0,0,.42),rgba(0,0,0,.42)),
+    url("images/hero.jpg"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='none' stroke='%23ffffff' stroke-opacity='.10' stroke-width='2'%3E%3Crect x='22' y='22' width='36' height='36'/%3E%3Crect x='22' y='22' width='36' height='36' transform='rotate(45 40 40)'/%3E%3Ccircle cx='40' cy='40' r='6'/%3E%3C/g%3E%3C/svg%3E");
+  background-size:cover,cover,80px 80px;background-position:center,center,center}
+.hero h1{font-family:var(--head);font-weight:600;font-size:clamp(2.2rem,6vw,3.6rem);line-height:1.1;margin:0 0 18px;text-wrap:balance}
+.hero p{font-family:var(--head);font-size:clamp(.95rem,1.6vw,1.05rem);margin:0;max-width:60ch}
+
+/* who we are */
+.about{padding-block:30px 46px}
+.about h2{font-family:var(--head);font-weight:600;color:var(--green-text);font-size:1.3rem;margin:0 0 22px}
+.about p{margin:0 0 14px;font-size:1rem;max-width:72ch}
+.about strong{color:var(--green-text)}
+
+/* teaching material */
+.material-title{font-family:var(--head);font-weight:700;color:var(--green-text);font-size:clamp(1.8rem,4.4vw,2.6rem);line-height:1.15;margin:0;padding-bottom:14px}
+.band{background:var(--green);color:#fff;padding-block:12px}
+.item{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.45fr);gap:20px;align-items:start;max-width:840px;margin:0 auto;padding:0 16px}
+.item + .item{margin-top:22px;padding-top:22px;border-top:1px solid rgba(255,255,255,.18)}
+.item img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:2px}
+.item h3{font-family:var(--head);font-weight:700;font-size:1.2rem;margin:14px 0 14px}
+.item p{font-family:var(--head);font-size:.92rem;margin:0 0 10px;line-height:1.5}
+.btn{display:block;text-align:center;font-family:var(--head);font-size:.98rem;color:#222;background:var(--yellow);text-decoration:none;border-radius:4px;padding:7px 16px}
+.btn:hover{filter:brightness(1.05)}
+.btn:focus-visible,.top a:focus-visible{outline:3px solid #fff;outline-offset:3px}
+
+footer{padding-block:34px 40px;color:var(--muted);font-size:.9rem;text-align:center}
+footer a{color:var(--green-text)}
+
+@media (max-width:640px){
+  .item{grid-template-columns:1fr}
+  .item h3{margin-top:4px}
+  .logo span{white-space:nowrap}
+  .top nav a{font-size:.82rem;padding:5px 9px}
+}
+@media (max-width:460px){ .top nav a[href="#about"]{display:none} }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="in">
+    <a class="logo" href="./">
+      <!-- Put your logo at images/logo.png. If the file is missing, only the name shows. -->
+      <img src="images/logo.png" alt="" onerror="this.remove()">
+      <span>TPA Khairu Ummah</span>
+    </a>
+    <nav aria-label="Main">
+      <a href="#about">Who we are</a>
+      <a href="#material">Teaching material</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero" aria-label="TPA Khairu Ummah">
+  <div class="wrap">
+    <h1>TPA Khairu Ummah</h1>
+    <p>Keluarga Pelajar Islam Indonesia Sydney (KPII Sydney), since 1995.</p>
+  </div>
+</section>
+
+<main>
+  <section class="about wrap" id="about">
+    <h2>Who we are</h2>
+    <p>KPII Sydney (Keluarga Pelajar Islam Indonesia Sydney) has been established <strong>since 1995</strong>. It began as a place for Indonesian students around Kingsford, New South Wales, to gather and stay connected.</p>
+    <p>Over 31 years, KPII has become a second home for hundreds of Indonesian students across universities in Sydney.</p>
+    <p>KPII Sydney was born from the spirit of Indonesian Muslim students living abroad who wanted a shared space to learn, worship, and support one another.</p>
+    <p>From regular study circles and TPA (Qur'an classes for children) to social activities and collaborations with the Indonesian community and official institutions such as KJRI Sydney (the Indonesian Consulate General), KPII has grown into a recognised organisation that benefits many.</p>
+  </section>
+
+  <section id="material">
+    <div class="wrap"><h2 class="material-title">Interactive Teaching Material</h2></div>
+    <div class="band">
+      <!-- To add another topic later, copy one <article class="item"> block and change its picture, text and link. -->
+      <article class="item">
+        <img src="images/islamic-calendar-thumbnail.jpg" alt="Three interactive lessons: the Day of 'Asyura, the Islamic New Year and the Night Journey, arranged on the months of the Hijri calendar">
+        <div>
+          <h3>Islamic Calendar</h3>
+          <p>Interactive lessons for TPA kids on the special days of the Hijri year: the Islamic New Year, 'Asyura and Isra' Mi'raj. Each lesson has a story, games and quizzes.</p>
+          <a class="btn" href="lessons/">Open here</a>
+        </div>
+      </article>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">TPA Khairu Ummah · Keluarga Pelajar Islam Indonesia Sydney (KPII Sydney)</div>
+</footer>
+
+</body>
+</html>

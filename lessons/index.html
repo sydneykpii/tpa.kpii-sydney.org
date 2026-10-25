@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Islamic Calendar Lessons</title>
+<meta name="description" content="Interactive lessons for TPA Khairu Ummah on the special days of the Hijri year.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Capriola&display=swap">
+<style>
+:root{--paper:#f7ebdd;--card:#fbf4ea;--ink:#5a3826;--muted:#8a6650;--line:rgba(90,56,38,.2);--accent:#8b4a2b;--gold:#d79b3f;color-scheme:light}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(ellipse at 50% 30%,#fdf6ec 0%,#f5e6d3 60%,#ecd7bb 100%) fixed;color:var(--ink);font-family:"Cairo","Segoe UI",system-ui,sans-serif;line-height:1.55}
+.wrap{max-width:1100px;margin:0 auto;padding:40px 16px 56px}
+.eyebrow{font-size:.85rem;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-weight:700}
+h1{font-family:"Capriola","Trebuchet MS",sans-serif;font-weight:400;font-size:clamp(2.2rem,6vw,3.6rem);line-height:1.1;margin:8px 0 10px}
+.lead{font-size:clamp(1.05rem,2vw,1.25rem);max-width:60ch;margin:0 0 28px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.card{background:var(--card);border:2px solid var(--ink);border-radius:24px;overflow:hidden;display:flex;flex-direction:column;box-shadow:7px 7px 0 -2px var(--paper),7px 7px 0 0 var(--ink)}
+.card img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;border-bottom:2px solid var(--line)}
+.body{padding:16px 18px 18px;display:flex;flex-direction:column;gap:8px;flex:1}
+.date{align-self:flex-start;font-size:.8rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:var(--accent);border-radius:999px;padding:2px 12px}
+h2{font-family:"Capriola","Trebuchet MS",sans-serif;font-weight:400;font-size:1.45rem;margin:0}
+.body p{margin:0;color:var(--muted)}
+.btn{margin-top:auto;align-self:flex-start;font-family:"Capriola","Trebuchet MS",sans-serif;font-size:1.05rem;color:#fff;background:var(--accent);text-decoration:none;border-radius:999px;padding:9px 22px}
+.btn:hover{filter:brightness(1.08)}
+.btn:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.back{display:inline-block;margin-bottom:18px;font-size:.95rem;color:var(--accent);text-decoration:none;font-weight:700}
+.back:hover{text-decoration:underline}
+.tip{margin-top:30px;font-size:.95rem;color:var(--muted)}
+@media (max-width:860px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <a class="back" href="../">← TPA Khairu Ummah home</a>
+  <div class="eyebrow">TPA Khairu Ummah · Interactive lessons</div>
+  <h1>Islamic Calendar</h1>
+  <p class="lead">Learn the special days of the Hijri year through stories, games and quizzes. Pick a lesson to start.</p>
+  <div class="grid">
+    <article class="card">
+      <img src="images/islamic-new-year.jpg" alt="Cover of the Islamic New Year lesson">
+      <div class="body"><span class="date">1 Muharram</span><h2>Islamic New Year</h2><p>The story of the Hijrah from Makkah to Madinah, the Cave of Thawr, and the 12 months of the Hijri calendar.</p><a class="btn" href="islamic-new-year.html" target="_blank" rel="noopener">Open lesson</a></div>
+    </article>
+    <article class="card">
+      <img src="images/asyura.jpg" alt="Cover of the Day of 'Asyura lesson">
+      <div class="body"><span class="date">10 Muharram</span><h2>The Day of 'Asyura</h2><p>How Allah saved Prophet Musa by splitting the sea, the four sacred months, and why we fast on 'Asyura.</p><a class="btn" href="asyura.html" target="_blank" rel="noopener">Open lesson</a></div>
+    </article>
+    <article class="card">
+      <img src="images/isra-miraj.jpg" alt="Cover of the Night Journey lesson">
+      <div class="body"><span class="date">Rajab</span><h2>The Night Journey</h2><p>Isra' Mi'raj: from Makkah to Masjid al-Aqsa, up through the seven heavens, and the gift of five daily prayers.</p><a class="btn" href="isra-miraj.html" target="_blank" rel="noopener">Open lesson</a></div>
+    </article>
+  </div>
+  <p class="tip">Each lesson opens in its own tab. Press <b>Full screen</b> at the top of the lesson to show it on the projector.</p>
+</main>
+</body>
+</html>
