@@ -10,9 +10,10 @@ Website TPA Khairu Ummah (KPII Sydney) beserta materi ajar interaktif.
 | `images/islamic-calendar-thumbnail.jpg` | Gambar untuk bagian Islamic Calendar |
 | `images/hero.jpg` | Foto banner atas (tambahkan sendiri) |
 | `images/logo.png` | Logo di pojok kiri atas (tambahkan sendiri) |
-| `lessons/index.html` | Halaman Islamic Calendar berisi tiga pelajaran |
+| `lessons/index.html` | Halaman Islamic Calendar berisi empat pelajaran |
 | `lessons/islamic-new-year.html` | Pelajaran Islamic New Year |
 | `lessons/asyura.html` | Pelajaran The Day of 'Asyura |
+| `lessons/maulid-nabi.html` | Pelajaran Maulid Nabi |
 | `lessons/isra-miraj.html` | Pelajaran The Night Journey (Isra Mi'raj) |
 
 ## Cara menayangkan di GitHub Pages
