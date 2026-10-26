@@ -1,0 +1,1045 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Maulid Nabi TPA Week 4</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Grandstander:wght@400;600;800&family=Pacifico&display=swap" rel="stylesheet">
+<style>
+/* Layout: one picture-book stage at a time, flipped like the classroom slides, nav bar pinned under it. Single warm theme on purpose, matching the TPA slides. */
+:root{
+  --cream:#F6ECE1;
+  --paper:#FFF8F0;
+  --coral:#EF7149;
+  --red:#D9433A;
+  --brown:#74290F;
+  --brown-soft:#9A5A3C;
+  --amber:#FFB347;
+  --amber-soft:#FFDDAA;
+  --leaf:#BFE38E;
+  --green:#5E9E2F;
+  --plum:#9C3854;
+  --sand:#F2D3A6;
+  --sky:#FBE3CF;
+  --f-display:"Pacifico","Brush Script MT",cursive;
+  --f-body:"Grandstander","Trebuchet MS","Comic Sans MS",system-ui,sans-serif;
+  --f-arabic:"Amiri","Traditional Arabic","Geeza Pro","Noto Naskh Arabic",serif;
+  color-scheme: light;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--cream);color:var(--brown);font-family:var(--f-body);font-size:17px;line-height:1.5;padding-inline:16px;padding-block:14px 28px}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--amber);outline-offset:3px;border-radius:10px}
+.app{max-width:1040px;margin:0 auto;display:grid;gap:14px}
+
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;font-weight:800;letter-spacing:.06em;text-transform:uppercase;font-size:.8rem;color:var(--coral)}
+.topbar .count{color:var(--brown-soft);font-variant-numeric:tabular-nums;letter-spacing:.04em}
+
+.stage{position:relative;background:var(--paper);border-radius:28px;overflow:hidden;min-height:clamp(480px,70vh,660px);padding:clamp(22px,4.5vw,52px);box-shadow:0 2px 0 rgba(116,41,15,.08),0 18px 40px -24px rgba(116,41,15,.35)}
+.blob{position:absolute;pointer-events:none;z-index:0;fill:var(--coral)}
+.blob.a{width:180px;top:-60px;left:-70px}
+.blob.b{width:220px;bottom:-90px;right:-80px}
+.deco-flower{position:absolute;pointer-events:none;z-index:0;fill:var(--leaf);opacity:.9}
+.scene{position:relative;z-index:1;display:grid;gap:clamp(16px,2.6vw,26px);animation:enter .45s ease-out both}
+@keyframes enter{from{opacity:.0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+h1,h2{font-family:var(--f-display);font-weight:400;color:var(--red);margin:0;line-height:1.3;text-wrap:balance}
+h1{font-size:clamp(2.3rem,6.5vw,4.2rem)}
+h2{font-size:clamp(1.8rem,4.6vw,2.9rem)}
+p{margin:0;max-width:62ch}
+.lead{font-size:clamp(1.05rem,2.2vw,1.25rem)}
+.eyebrow{font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--coral);font-size:.85rem}
+.hl{color:var(--red);font-weight:800}
+.hl2{color:var(--coral);font-weight:800}
+
+.btn{appearance:none;border:0;cursor:pointer;background:var(--red);color:var(--paper);font-weight:800;padding:.7em 1.35em;border-radius:999px;box-shadow:0 4px 0 var(--plum);transition:transform .12s,box-shadow .12s;font-size:1rem;display:inline-flex;align-items:center;gap:.5em;justify-self:start}
+.btn:hover{transform:translateY(-1px)}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 var(--plum)}
+.btn.green{background:var(--green);box-shadow:0 4px 0 #3f6e1d}
+.btn.ghost{background:transparent;color:var(--brown);box-shadow:inset 0 0 0 2px var(--brown-soft)}
+.btn.ghost:active{box-shadow:inset 0 0 0 2px var(--brown-soft)}
+.btn[disabled]{opacity:.4;cursor:default;transform:none}
+.row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+
+/* cover */
+.cover{grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);align-items:center;min-height:clamp(420px,60vh,560px)}
+.cover .text{display:grid;gap:18px;min-width:0}
+.lanterns{display:flex;justify-content:center;gap:18px;align-items:flex-start}
+.lanterns svg{width:clamp(80px,13vw,130px);transform-origin:50% 0;animation:swing 3.4s ease-in-out infinite alternate}
+.lanterns svg:nth-child(2){margin-top:46px;animation-delay:-1.6s;width:clamp(64px,10vw,104px)}
+@keyframes swing{from{transform:rotate(-5deg)}to{transform:rotate(5deg)}}
+@media (max-width:640px){.cover{grid-template-columns:1fr}.lanterns{order:-1}}
+
+/* reveal cards */
+.reveal-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+@media (max-width:720px){.reveal-grid{grid-template-columns:1fr}}
+.reveal{appearance:none;border:0;cursor:pointer;text-align:left;background:var(--amber);border-radius:22px;padding:18px 20px;display:grid;gap:8px;align-content:start;min-height:150px;box-shadow:0 5px 0 #E08F22;transition:transform .15s}
+.reveal:hover{transform:translateY(-2px)}
+.reveal .q{font-weight:800;font-size:1.35rem}
+.reveal .hint{font-size:.9rem;color:var(--brown-soft)}
+.reveal .a{font-size:1.05rem;animation:pop .35s ease-out}
+.reveal[aria-expanded="true"]{background:var(--amber-soft);box-shadow:0 5px 0 var(--amber)}
+@keyframes pop{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:none}}
+.note{background:var(--leaf);border-radius:18px;padding:14px 18px;display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center}
+.chip{display:inline-block;background:var(--paper);border-radius:999px;padding:.2em .8em;font-weight:800;font-variant-numeric:tabular-nums}
+
+/* elephant story */
+.scene-frame{border-radius:20px;overflow:hidden;background:var(--sky);max-width:100%}
+.scene-frame svg{display:block;width:100%;height:auto}
+.story{display:grid;gap:14px;background:var(--cream);border-radius:20px;padding:18px 20px}
+.story .steps{display:flex;gap:8px}
+.story .steps span{width:34px;height:8px;border-radius:99px;background:var(--sand)}
+.story .steps span.on{background:var(--coral)}
+.story p{font-size:1.12rem}
+.march{transition:transform 1.8s ease-in-out}
+.march.go{transform:translateX(150px)}
+.flee{transition:none}
+svg.attack .flee{transform:translateX(-460px);opacity:0;transition:transform 1.5s ease-in 2.3s,opacity 1.1s ease-in 2.6s}
+.bird{opacity:0}
+svg.attack .bird{animation:fly 3.6s ease-in-out var(--d) both}
+@keyframes fly{0%{opacity:1;transform:translate(var(--sx),var(--sy))}50%{transform:translate(var(--mx),var(--my))}100%{opacity:1;transform:translate(-80px,-60px)}}
+.stone{opacity:0}
+svg.attack .stone{animation:drop .7s ease-in var(--d) both}
+@keyframes drop{0%{opacity:1;transform:translateY(-70px)}85%{opacity:1}100%{opacity:0;transform:translateY(8px)}}
+.walk use{animation:bob .6s ease-in-out infinite alternate}
+@keyframes bob{to{transform:translateY(-3px)}}
+
+/* ayah */
+.ayat{display:grid;gap:12px}
+.ayah{display:grid;grid-template-columns:auto minmax(0,1fr);gap:14px;align-items:center;background:var(--cream);border-radius:20px;padding:14px 18px}
+.num{width:40px;height:40px;border-radius:50%;background:var(--coral);color:var(--paper);display:grid;place-items:center;font-weight:800}
+.ayah .body{display:grid;gap:6px;min-width:0}
+.arabic{font-family:var(--f-arabic);direction:rtl;text-align:right;font-size:clamp(1.6rem,4.2vw,2.3rem);line-height:2;color:var(--brown)}
+.ayah button{justify-self:start;appearance:none;border:0;background:none;cursor:pointer;color:var(--coral);font-weight:800;padding:2px 0;text-decoration:underline;text-underline-offset:4px}
+.meaning{color:var(--red);font-weight:600;font-size:1.1rem;animation:pop .3s ease-out}
+
+/* childhood timeline */
+.stops{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.stop{appearance:none;border:0;cursor:pointer;background:var(--cream);border-radius:14px;padding:10px 6px;font-weight:800;text-align:center;font-size:.95rem}
+.stop[aria-current="true"]{background:var(--coral);color:var(--paper)}
+input[type=range]{width:100%;accent-color:var(--coral);height:28px}
+.life{display:grid;grid-template-columns:auto minmax(0,1fr);gap:20px;align-items:center;background:var(--amber);border-radius:24px;padding:22px 24px;box-shadow:0 5px 0 #E08F22}
+.life .age{font-family:var(--f-display);font-size:clamp(2.2rem,6vw,3.4rem);color:var(--red);line-height:1.1;min-width:3.5ch;text-align:center}
+.life .age small{display:block;font-family:var(--f-body);font-size:.85rem;font-weight:800;color:var(--brown);text-transform:uppercase;letter-spacing:.08em}
+.life h3{margin:0 0 4px;font-size:1.3rem}
+@media (max-width:560px){.life{grid-template-columns:1fr;text-align:left}.life .age{text-align:left}}
+
+/* family */
+.family{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:20px;align-items:start}
+@media (max-width:760px){.family{grid-template-columns:1fr}}
+.tree{display:grid;gap:10px;justify-items:center}
+.tree .gen{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.person{appearance:none;border:0;cursor:pointer;background:var(--cream);border-radius:16px;padding:10px 14px;display:grid;text-align:center;min-width:120px}
+.person b{font-size:1.05rem}
+.person span{font-size:.8rem;text-transform:uppercase;letter-spacing:.08em;color:var(--brown-soft);font-weight:800}
+.person[aria-pressed="true"]{background:var(--coral);color:var(--paper)}
+.person[aria-pressed="true"] span{color:var(--paper)}
+.person.star{background:var(--green);color:var(--paper)}
+.person.star span{color:var(--leaf)}
+.line{width:2px;height:14px;background:var(--brown-soft);opacity:.5}
+.who{background:var(--cream);border-radius:16px;padding:12px 16px;min-height:3.4em;text-align:center}
+.song{display:grid;gap:12px;background:var(--plum);color:var(--paper);border-radius:24px;padding:22px}
+.song .play{width:64px;height:64px;border-radius:50%;background:var(--red);display:grid;place-items:center}
+.song a{color:var(--paper);font-weight:800}
+.song h3{margin:0;font-family:var(--f-display);font-weight:400;font-size:1.6rem;line-height:1.3}
+
+/* flip titles */
+.flips{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+@media (max-width:680px){.flips{grid-template-columns:1fr}}
+.flip{appearance:none;border:0;background:none;padding:0;cursor:pointer;perspective:1000px;text-align:center}
+.flip-inner{display:grid;transition:transform .6s;transform-style:preserve-3d}
+.flip[aria-pressed="true"] .flip-inner{transform:rotateY(180deg)}
+.face{grid-area:1/1;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:24px;padding:24px;display:grid;gap:8px;align-content:center;min-height:220px}
+.face.front{background:var(--amber);box-shadow:0 5px 0 #E08F22}
+.face.back{background:var(--leaf);transform:rotateY(180deg);box-shadow:0 5px 0 #8fbf5a}
+.face .ar{font-family:var(--f-arabic);font-size:clamp(2.6rem,7vw,3.6rem);line-height:1.4}
+.face .tr{font-weight:800;font-size:1.25rem}
+.face .tap{font-size:.85rem;color:var(--brown-soft)}
+.face .mean{font-family:var(--f-display);font-size:1.7rem;color:var(--red);line-height:1.3}
+
+/* safa */
+.bubble{position:relative;background:var(--cream);border-radius:22px;padding:18px 22px;font-size:1.15rem;max-width:62ch}
+.bubble::after{content:"";position:absolute;left:34px;bottom:-14px;border:14px solid transparent;border-top-color:var(--cream);border-bottom:0}
+.who-says{font-weight:800;font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:var(--coral);margin-top:6px}
+.answer{background:var(--green);color:var(--paper);border-radius:22px;padding:18px 22px;display:grid;gap:10px;animation:pop .35s ease-out}
+.answer .quote{font-size:1.25rem;font-weight:800}
+.answer p{color:var(--paper)}
+
+/* maulid */
+.maulid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:20px;align-items:start}
+@media (max-width:780px){.maulid{grid-template-columns:1fr}}
+.promises{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+@media (max-width:460px){.promises{grid-template-columns:1fr}}
+.promise{appearance:none;border:0;cursor:pointer;background:var(--amber);border-radius:18px;padding:14px 16px;text-align:left;display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px;align-items:start;font-weight:800;box-shadow:0 4px 0 #E08F22}
+.box{width:26px;height:26px;border-radius:8px;background:var(--paper);display:grid;place-items:center}
+.box svg{width:16px;opacity:0;transition:opacity .2s}
+.promise[aria-pressed="true"]{background:var(--leaf);box-shadow:0 4px 0 #8fbf5a}
+.promise[aria-pressed="true"] .box svg{opacity:1}
+.counter{background:var(--plum);color:var(--paper);border-radius:24px;padding:20px;display:grid;gap:10px;justify-items:center;text-align:center}
+.counter .ar{font-family:var(--f-arabic);font-size:1.9rem;line-height:1.6}
+.counter .n{font-family:var(--f-display);font-size:3rem;line-height:1.2;font-variant-numeric:tabular-nums}
+.tapbig{appearance:none;border:0;cursor:pointer;width:120px;height:120px;border-radius:50%;background:var(--amber);color:var(--brown);font-weight:800;font-size:1.1rem;box-shadow:0 6px 0 #E08F22;transition:transform .1s}
+.tapbig:active{transform:translateY(4px) scale(.97);box-shadow:0 2px 0 #E08F22}
+.counter .small{font-size:.85rem;opacity:.85}
+.counter .link{appearance:none;border:0;background:none;color:var(--paper);text-decoration:underline;cursor:pointer;font-size:.9rem}
+.hadith{background:var(--cream);border-radius:20px;padding:14px 18px;display:grid;gap:4px}
+.hadith .arabic{font-size:clamp(1.3rem,3.4vw,1.75rem)}
+.hadith .en{color:var(--red);font-weight:600}
+.hadith .src{font-size:.85rem;color:var(--brown-soft)}
+
+/* quiz */
+.quiz{display:grid;gap:16px;max-width:720px}
+.qnum{font-weight:800;color:var(--coral);letter-spacing:.06em;text-transform:uppercase;font-size:.85rem}
+.qtext{font-size:clamp(1.25rem,3vw,1.6rem);font-weight:800;text-wrap:balance}
+.opts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+@media (max-width:520px){.opts{grid-template-columns:1fr}}
+.opt{appearance:none;border:0;cursor:pointer;background:var(--cream);border-radius:16px;padding:14px 16px;text-align:left;font-weight:600;font-size:1.05rem;box-shadow:inset 0 0 0 2px var(--sand)}
+.opt:hover:not([disabled]){box-shadow:inset 0 0 0 2px var(--coral)}
+.opt[disabled]{cursor:default}
+.opt.right{background:var(--green);color:var(--paper);box-shadow:none}
+.opt.wrong{background:var(--red);color:var(--paper);box-shadow:none}
+.feedback{font-size:1.05rem}
+.feedback b{color:var(--red)}
+.result{display:grid;gap:14px;justify-items:start}
+.result .thanks{font-family:var(--f-display);font-size:clamp(2.6rem,8vw,4.4rem);color:var(--red);line-height:1.2}
+.score{font-size:1.3rem;font-weight:800}
+.fall{position:absolute;top:-40px;width:28px;fill:var(--leaf);pointer-events:none;z-index:2;animation:fall 2.6s ease-in forwards}
+.fall.c{fill:var(--coral)}
+@keyframes fall{to{transform:translateY(720px) rotate(320deg);opacity:.2}}
+
+/* sound controls */
+.tb-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.tb-btn{appearance:none;border:0;cursor:pointer;background:var(--paper);color:var(--brown);border-radius:999px;padding:.45em .9em;font-weight:800;font-size:.8rem;letter-spacing:.03em;text-transform:none;display:inline-flex;gap:.45em;align-items:center;box-shadow:inset 0 0 0 2px var(--sand)}
+.tb-btn svg{width:16px;height:16px}
+.tb-btn[aria-pressed="true"]{background:var(--coral);color:var(--paper);box-shadow:none}
+.tb-btn.speaking{background:var(--green);color:var(--paper);box-shadow:none}
+.listen{display:inline-flex;align-items:center;gap:.5em;font-weight:800;color:var(--coral);text-underline-offset:4px;justify-self:start}
+
+/* nav */
+.nav{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.dots{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.dot{appearance:none;border:0;width:14px;height:14px;border-radius:50%;background:var(--sand);cursor:pointer;padding:0}
+.dot[aria-current="step"]{background:var(--red);transform:scale(1.2)}
+.dot.seen{background:var(--amber)}
+.nav .btn{justify-self:auto}
+@media (max-width:520px){.nav .btn .lbl{display:none}.dots{gap:6px}.dot{width:11px;height:11px}}
+.kbd{font-size:.8rem;color:var(--brown-soft);text-align:center}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;animation-iteration-count:1!important;transition-duration:.01ms!important;transition-delay:0s!important}
+}
+
+[hidden]:not([hidden=until-found i]){display:none!important}
+img{max-width:100%}
+/* full-screen classroom layout, same as the other TPA lessons */
+html,body{height:100%}
+body{overflow:hidden;padding:0}
+.app{max-width:none;height:100%;display:flex;flex-direction:column;gap:0}
+.topbar{padding:10px 16px;background:rgba(255,248,240,.92);border-bottom:1px solid rgba(116,41,15,.12)}
+.app > .stage{flex:1;min-height:0;width:min(1040px,calc(100% - 32px));margin:16px auto;padding:0;display:flex}
+.scroll{position:relative;z-index:1;flex:1;min-width:0;overflow-y:auto;display:flex;flex-direction:column;padding:clamp(22px,4.5vw,52px)}
+.scroll > .scene{margin-block:auto}
+.cover{min-height:0}
+.nav{padding:10px 16px;background:rgba(255,248,240,.92);border-top:1px solid rgba(116,41,15,.12)}
+.app > .kbd{display:none}
+.blob.a{width:140px;top:-74px;left:-84px}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="flower" viewBox="-30 -30 60 60">
+      <g>
+        <ellipse cx="0" cy="-14" rx="8" ry="14"/>
+        <ellipse cx="0" cy="-14" rx="8" ry="14" transform="rotate(72)"/>
+        <ellipse cx="0" cy="-14" rx="8" ry="14" transform="rotate(144)"/>
+        <ellipse cx="0" cy="-14" rx="8" ry="14" transform="rotate(216)"/>
+        <ellipse cx="0" cy="-14" rx="8" ry="14" transform="rotate(288)"/>
+      </g>
+    </symbol>
+    <symbol id="lantern" viewBox="0 0 100 160">
+      <circle cx="50" cy="10" r="7" fill="none" stroke="#5E9E2F" stroke-width="4"/>
+      <path d="M18 46 L30 18 H70 L82 46 Z" fill="#FFB347"/>
+      <rect x="27" y="26" width="46" height="3" rx="1.5" fill="#FFF8F0" opacity=".8"/>
+      <rect x="24" y="46" width="52" height="78" rx="6" fill="#9C3854"/>
+      <path d="M36 118 V80 a14 14 0 0 1 28 0 V118 Z" fill="#EF7149" stroke="#FFF8F0" stroke-width="2.5"/>
+      <path d="M50 90 c7 9 7 17 0 23 c-7 -6 -7 -14 0 -23z" fill="#FFDDAA"/>
+      <rect x="20" y="122" width="60" height="10" rx="3" fill="#74290F"/>
+      <path d="M30 132 h40 a20 13 0 0 1 -40 0z" fill="#5E9E2F"/>
+    </symbol>
+    <symbol id="ele" viewBox="0 0 130 90">
+      <rect x="22" y="56" width="11" height="26" rx="4" fill="#8E949A"/>
+      <rect x="40" y="58" width="11" height="24" rx="4" fill="#8E949A"/>
+      <rect x="62" y="58" width="11" height="24" rx="4" fill="#8E949A"/>
+      <rect x="78" y="56" width="11" height="26" rx="4" fill="#8E949A"/>
+      <ellipse cx="55" cy="44" rx="44" ry="28" fill="#A3A9AF"/>
+      <path d="M12 40 q-10 6 -6 18" stroke="#8E949A" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <circle cx="98" cy="34" r="21" fill="#A3A9AF"/>
+      <ellipse cx="88" cy="34" rx="11" ry="16" fill="#BEC3C8"/>
+      <path d="M114 40 q12 18 2 38" stroke="#A3A9AF" stroke-width="9" fill="none" stroke-linecap="round"/>
+      <circle cx="105" cy="29" r="2.6" fill="#3a2a22"/>
+      <path d="M30 20 h40 v10 h-40z" fill="#D9433A"/>
+      <path d="M30 30 h40 l-4 8 h-32z" fill="#FFB347"/>
+    </symbol>
+    <symbol id="bird" viewBox="0 0 28 12">
+      <path d="M1 8 Q7 0 14 7 Q21 0 27 8" stroke="#EF7149" stroke-width="3.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="tick" viewBox="0 0 16 16"><path d="M2 8.5 L6.2 12.5 L14 3.5" stroke="#5E9E2F" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  </defs>
+</svg>
+
+<div class="app">
+  <div class="topbar">
+    <span>TPA Khairu Ummah · Week 4</span>
+    <div class="tb-actions">
+      <button class="tb-btn" id="readBtn" type="button"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 2.5h7.5a2.5 2.5 0 0 1 2.5 2.5v8.5H5.5A2.5 2.5 0 0 1 3 11z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M6 6h4.5M6 9h3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span id="readLbl">Read aloud</span></button>
+      <button class="tb-btn" id="soundBtn" type="button" aria-pressed="true"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 6h3l4-3v10l-4-3H2z" fill="currentColor"/><path id="waves" d="M11 5.5a3.5 3.5 0 0 1 0 5M12.8 3.5a6 6 0 0 1 0 9" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span id="soundLbl">Sound on</span></button>
+      <button class="tb-btn" id="fsBtn" type="button" title="Full screen (F)"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 6V2h4M10 2h4v4M14 10v4h-4M6 14H2v-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Full screen</span></button>
+      <span class="count" id="count" aria-live="polite">1 / 10</span>
+    </div>
+  </div>
+
+  <main class="stage" id="stage">
+    <svg class="blob a" viewBox="0 0 200 200" aria-hidden="true"><path d="M40 0 H200 V60 C170 70 150 100 160 130 C170 170 120 190 80 170 C40 150 10 170 0 140 V0Z"/></svg>
+    <svg class="blob b" viewBox="0 0 200 200" aria-hidden="true"><path d="M200 40 V200 H40 C50 170 30 150 50 120 C70 90 60 60 100 50 C140 40 160 10 200 40Z"/></svg>
+    <svg class="deco-flower" style="width:46px;top:22px;right:28%" aria-hidden="true"><use href="#flower"/></svg>
+    <svg class="deco-flower" style="width:30px;bottom:30px;left:24px" aria-hidden="true"><use href="#flower"/></svg>
+
+    <div class="scroll" id="scroller">
+    <!-- 1 Cover -->
+    <section class="scene cover" data-name="Start">
+      <div class="text">
+        <span class="eyebrow">Maulid Nabi · Week 4</span>
+        <h1>Born Day of Prophet Muhammad SAW</h1>
+        <p class="lead">Today we learn the story of the most honest and kind person who ever lived. Tap, flip and play along!</p>
+        <button class="btn" data-go="next">Start the story</button>
+      </div>
+      <div class="lanterns" aria-hidden="true">
+        <svg viewBox="0 0 100 160"><use href="#lantern"/></svg>
+        <svg viewBox="0 0 100 160"><use href="#lantern"/></svg>
+      </div>
+    </section>
+
+    <!-- 2 Born day -->
+    <section class="scene" data-name="Born day" hidden>
+      <h2>Commemorate Prophet Muhammad's Born Day!</h2>
+      <p class="lead">Tap each card to find out.</p>
+      <div class="reveal-grid">
+        <button class="reveal" aria-expanded="false">
+          <span class="q">When?</span>
+          <span class="hint">Tap to see</span>
+          <span class="a" hidden>On a <span class="hl">Monday, 12th of Rabiul Awwal</span>, in the Year of the Elephant, around 570 CE.</span>
+        </button>
+        <button class="reveal" aria-expanded="false">
+          <span class="q">Where?</span>
+          <span class="hint">Tap to see</span>
+          <span class="a" hidden>In <span class="hl">Mecca</span>, in the land of Arabia.</span>
+        </button>
+        <button class="reveal" aria-expanded="false">
+          <span class="q">Which family?</span>
+          <span class="hint">Tap to see</span>
+          <span class="a" hidden>The <span class="hl">Banu Hashim</span> clan of the <span class="hl">Quraysh</span> tribe.</span>
+        </button>
+      </div>
+      <div class="note">
+        <p>Remembering the day he was born is called <span class="hl">Mawlid / Maulid Nabi</span>.</p>
+        <span class="chip" id="yearsAgo">about 1,450 years ago</span>
+      </div>
+    </section>
+
+    <!-- 3 Year of the elephant -->
+    <section class="scene" data-name="Year of the Elephant" hidden>
+      <h2>Why is it called the Year of the Elephant?</h2>
+      <div class="scene-frame">
+        <svg id="eleScene" viewBox="0 0 640 290" role="img" aria-label="Abraha's elephants march toward the Kaaba">
+          <rect width="640" height="290" fill="#FBE3CF"/>
+          <circle cx="560" cy="58" r="30" fill="#FFB347" opacity=".75"/>
+          <path d="M0 230 C120 210 220 236 340 222 C450 210 540 226 640 214 V290 H0Z" fill="#F2D3A6"/>
+          <path d="M0 250 C140 240 260 258 400 246 C500 238 580 250 640 244 V290 H0Z" fill="#EBC28E"/>
+          <g aria-hidden="true">
+            <rect x="500" y="146" width="96" height="92" fill="#2E2420"/>
+            <rect x="500" y="164" width="96" height="11" fill="#FFB347"/>
+            <rect x="538" y="196" width="20" height="30" rx="2" fill="#FFB347" opacity=".9"/>
+            <path d="M500 146 L520 132 H616 L596 146Z" fill="#433530"/>
+            <path d="M596 146 L616 132 V224 L596 238Z" fill="#1F1815"/>
+          </g>
+          <g class="march" id="march">
+            <g class="flee">
+              <g class="walk">
+                <use href="#ele" x="-10" y="150" width="120" height="84"/>
+                <use href="#ele" x="96" y="138" width="138" height="96" style="animation-delay:-.3s"/>
+                <use href="#ele" x="10" y="176" width="96" height="66" style="animation-delay:-.15s"/>
+              </g>
+            </g>
+          </g>
+          <g id="stones"></g>
+          <g id="birds"></g>
+        </svg>
+      </div>
+      <div class="story">
+        <div class="steps" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+        <p id="storyText"></p>
+        <div class="row">
+          <button class="btn" id="storyNext">Next part</button>
+          <button class="btn green" id="sendBirds" hidden>Send the birds!</button>
+          <button class="btn ghost" id="storyReplay" hidden>Watch again</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4 Al-Fil -->
+    <section class="scene" data-name="QS. Al-Fil" hidden>
+      <h2>QS. Al-Fil, 3-5</h2>
+      <p class="lead">Allah tells this story in the Quran. Read each ayah, then tap to see what it means.</p>
+      <a class="listen" href="https://quran.com/105/3-5" target="_blank" rel="noopener"><svg width="18" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 6h3l4-3v10l-4-3H2z" fill="currentColor"/><path d="M11 5.5a3.5 3.5 0 0 1 0 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>Listen to a qari recite these ayat on Quran.com</a>
+      <div class="ayat">
+        <div class="ayah">
+          <span class="num">3</span>
+          <div class="body">
+            <p class="arabic" lang="ar">وَأَرْسَلَ عَلَيْهِمْ طَيْرًا أَبَابِيلَ</p>
+            <button aria-expanded="false">What does it mean?</button>
+            <p class="meaning" hidden>For He sent against them flocks of birds,</p>
+          </div>
+        </div>
+        <div class="ayah">
+          <span class="num">4</span>
+          <div class="body">
+            <p class="arabic" lang="ar">تَرْمِيهِم بِحِجَارَةٍ مِّن سِجِّيلٍ</p>
+            <button aria-expanded="false">What does it mean?</button>
+            <p class="meaning" hidden>that pelted them with stones of baked clay,</p>
+          </div>
+        </div>
+        <div class="ayah">
+          <span class="num">5</span>
+          <div class="body">
+            <p class="arabic" lang="ar">فَجَعَلَهُمْ كَعَصْفٍ مَّأْكُولٍۭ</p>
+            <button aria-expanded="false">What does it mean?</button>
+            <p class="meaning" hidden>leaving them like chewed up straw.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5 Childhood -->
+    <section class="scene" data-name="Childhood" hidden>
+      <h2>Prophet Muhammad's Childhood</h2>
+      <p class="lead">Slide along to grow up with him.</p>
+      <div class="stops" id="stops">
+        <button class="stop" data-i="0">Before birth</button>
+        <button class="stop" data-i="1">Age 6</button>
+        <button class="stop" data-i="2">Age 8</button>
+        <button class="stop" data-i="3">Age 12</button>
+      </div>
+      <label for="ageRange" class="kbd">Drag the slider or tap a stop</label>
+      <input type="range" id="ageRange" min="0" max="3" step="1" value="0">
+      <div class="life" aria-live="polite">
+        <div class="age" id="lifeAge"></div>
+        <div>
+          <h3 id="lifeTitle"></h3>
+          <p id="lifeText"></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6 Family -->
+    <section class="scene" data-name="Family" hidden>
+      <h2>Prophet Muhammad's Family</h2>
+      <div class="family">
+        <div class="tree">
+          <div class="gen"><button class="person" data-who="0"><span>Grandfather</span><b>Abdul Muttalib</b></button></div>
+          <div class="line"></div>
+          <div class="gen">
+            <button class="person" data-who="1"><span>Father</span><b>Abdullah</b></button>
+            <button class="person" data-who="2"><span>Mother</span><b>Aminah</b></button>
+            <button class="person" data-who="3"><span>Uncle</span><b>Abu Talib</b></button>
+          </div>
+          <div class="line"></div>
+          <div class="gen"><button class="person star" data-who="4"><span>Our Prophet</span><b>Muhammad SAW</b></button></div>
+          <p class="who" id="whoText" aria-live="polite">Tap a name to meet the family.</p>
+        </div>
+        <div class="song">
+          <div class="play" aria-hidden="true"><svg width="26" viewBox="0 0 26 30"><path d="M3 2 L24 15 L3 28Z" fill="#FFF8F0"/></svg></div>
+          <h3>Sing along!</h3>
+          <p>"Prophet Mohammed" by Hudhud English, from The Little Muslim channel.</p>
+          <a href="https://www.youtube.com/watch?v=cS7BkP-dnm8" target="_blank" rel="noopener">Open the song on YouTube</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7 Titles -->
+    <section class="scene" data-name="His titles" hidden>
+      <h2>His Titles: Al-Amin &amp; As-Sadiq</h2>
+      <p class="lead">People gave him two special names. Flip the cards!</p>
+      <div class="flips">
+        <button class="flip" aria-pressed="false" aria-label="Al-Amin, tap to flip">
+          <span class="flip-inner">
+            <span class="face front"><span class="ar" lang="ar">الأَمِين</span><span class="tr">Al-Amin</span><span class="tap">Tap to flip</span></span>
+            <span class="face back"><span class="mean">The Trustworthy</span><span>Because of his good character, he never lied, never cheated and never broke a promise.</span></span>
+          </span>
+        </button>
+        <button class="flip" aria-pressed="false" aria-label="As-Sadiq, tap to flip">
+          <span class="flip-inner">
+            <span class="face front"><span class="ar" lang="ar">الصَّادِق</span><span class="tr">As-Sadiq</span><span class="tap">Tap to flip</span></span>
+            <span class="face back"><span class="mean">The Truthful</span><span>He was honest and fair his whole life, so everyone knew he always told the truth.</span></span>
+          </span>
+        </button>
+      </div>
+    </section>
+
+    <!-- 8 Safa -->
+    <section class="scene" data-name="Mount Safa" hidden>
+      <h2>Mount Safa Call</h2>
+      <p class="lead">One day, the Prophet gathered the people of Quraysh at Mount Safa and asked:</p>
+      <div>
+        <div class="bubble">"O people of Quraysh, if I told you that an army is coming at you from behind this mountain, would you believe me?"</div>
+        <div class="who-says" style="margin-top:20px">Prophet Muhammad SAW</div>
+      </div>
+      <p><b>What do you think they answered?</b></p>
+      <div class="row" id="safaChoices">
+        <button class="btn green" data-pick="yes">"Yes, we believe you!"</button>
+        <button class="btn ghost" data-pick="no">"No, we don't!"</button>
+      </div>
+      <div class="answer" id="safaAnswer" hidden>
+        <span id="safaVerdict"></span>
+        <span class="quote">They all said: "Yes! We have never heard you tell a lie."</span>
+        <p>Everyone in Makkah knew he was honest and truthful, with no exception. He lived a pure and simple life, and even his strongest enemies agreed he was the most truthful and honest person.</p>
+      </div>
+    </section>
+
+    <!-- 9 Maulid -->
+    <section class="scene" data-name="How to commemorate" hidden>
+      <h2>How can we commemorate Maulid?</h2>
+      <div class="maulid">
+        <div style="display:grid;gap:14px;min-width:0">
+          <p class="lead">Tap the promises you will keep this week. <span class="chip" id="promiseCount">0 of 4</span></p>
+          <div class="promises">
+            <button class="promise" aria-pressed="false"><span class="box"><svg viewBox="0 0 16 16"><use href="#tick"/></svg></span><span>Send Salawat to him as many times as you can</span></button>
+            <button class="promise" aria-pressed="false"><span class="box"><svg viewBox="0 0 16 16"><use href="#tick"/></svg></span><span>Practice his habits and behaviour every day</span></button>
+            <button class="promise" aria-pressed="false"><span class="box"><svg viewBox="0 0 16 16"><use href="#tick"/></svg></span><span>Learn and read more Seerah, the story of his life and his struggle for Islam</span></button>
+            <button class="promise" aria-pressed="false"><span class="box"><svg viewBox="0 0 16 16"><use href="#tick"/></svg></span><span>Be kind to people around you, and to plants and animals too</span></button>
+          </div>
+          <div class="hadith">
+            <p class="arabic" lang="ar">لَا تَحْقِرَنَّ مِنَ الْمَعْرُوفِ شَيْئًا وَلَوْ أَنْ تَلْقَى أَخَاكَ بِوَجْهٍ طَلْقٍ</p>
+            <p class="en">"Do not belittle any good deed, even meeting your brother with a cheerful face."</p>
+            <p class="src">Sahih Muslim</p>
+          </div>
+        </div>
+        <div class="counter">
+          <span class="small">Salawat counter</span>
+          <span class="ar" lang="ar">اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ</span>
+          <span>Allahumma shalli 'ala Muhammad</span>
+          <span class="n" id="salawatN" aria-live="polite">0</span>
+          <button class="tapbig" id="salawatTap">Tap!</button>
+          <button class="link" id="salawatReset">Start over</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10 Quiz -->
+    <section class="scene" data-name="Quiz" hidden>
+      <h2 id="quizHead">Quick Quiz!</h2>
+      <div class="quiz" id="quiz"></div>
+    </section>
+    </div>
+  </main>
+
+  <nav class="nav" aria-label="Slides">
+    <button class="btn ghost" id="prev"><span aria-hidden="true">←</span><span class="lbl">Back</span></button>
+    <div class="dots" id="dots"></div>
+    <button class="btn" id="next"><span class="lbl">Next</span><span aria-hidden="true">→</span></button>
+  </nav>
+  <p class="kbd">Presenting on a screen? Use the arrow keys to move between slides.</p>
+</div>
+
+<script>
+(function(){
+  var scenes = Array.prototype.slice.call(document.querySelectorAll('.scene'));
+  var cur = 0, seen = {0:true};
+  var dotsEl = document.getElementById('dots');
+  var prevBtn = document.getElementById('prev');
+  var nextBtn = document.getElementById('next');
+  var countEl = document.getElementById('count');
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* Sound effects, synthesized with Web Audio */
+  var AC = window.AudioContext || window.webkitAudioContext;
+  var ctx = null, unlocked = false, soundOn = true, masterGain = null;
+  try { soundOn = localStorage.getItem('maulid-week4-sound') !== 'off'; } catch(e) {}
+  function unlock(){
+    unlocked = true;
+    if (!AC) return;
+    if (!ctx) { try { ctx = new AC(); } catch(e) { ctx = null; } }
+    if (ctx && ctx.state === 'suspended') { try { ctx.resume(); } catch(e) {} }
+  }
+  document.addEventListener('pointerdown', unlock, true);
+  document.addEventListener('keydown', unlock, true);
+  function master(){
+    if (!masterGain) { masterGain = ctx.createGain(); masterGain.gain.value = 0.9; masterGain.connect(ctx.destination); }
+    return masterGain;
+  }
+  function tone(freq, start, dur, opt){
+    opt = opt || {};
+    var t = ctx.currentTime + (start || 0);
+    var o = ctx.createOscillator(), g = ctx.createGain();
+    o.type = opt.type || 'sine';
+    o.frequency.setValueAtTime(freq, t);
+    if (opt.to) o.frequency.exponentialRampToValueAtTime(opt.to, t + dur);
+    var v = opt.vol == null ? 0.18 : opt.vol;
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.exponentialRampToValueAtTime(v, t + (opt.attack || 0.01));
+    g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    o.connect(g); g.connect(master());
+    o.start(t); o.stop(t + dur + 0.05);
+  }
+  function noise(start, dur, f1, f2, vol){
+    var t = ctx.currentTime + (start || 0);
+    var len = Math.max(1, Math.floor(ctx.sampleRate * dur));
+    var buf = ctx.createBuffer(1, len, ctx.sampleRate), d = buf.getChannelData(0);
+    for (var n = 0; n < len; n++) d[n] = Math.random() * 2 - 1;
+    var src = ctx.createBufferSource(); src.buffer = buf;
+    var bp = ctx.createBiquadFilter(); bp.type = 'bandpass'; bp.Q.value = 1.2;
+    bp.frequency.setValueAtTime(f1, t); bp.frequency.exponentialRampToValueAtTime(f2, t + dur);
+    var g = ctx.createGain();
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.exponentialRampToValueAtTime(vol || 0.25, t + dur * 0.3);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    src.connect(bp); bp.connect(g); g.connect(master());
+    src.start(t); src.stop(t + dur + 0.02);
+  }
+  var sfx = {
+    tap: function(){ tone(620, 0, .09, {to:900, vol:.14}); },
+    page: function(){ noise(0, .28, 600, 2400, .12); },
+    reveal: function(){ tone(784, 0, .18, {vol:.14}); tone(1175, .08, .3, {vol:.12}); },
+    flip: function(){ noise(0, .32, 400, 3000, .16); tone(523, .18, .22, {vol:.08}); },
+    check: function(){ tone(660, 0, .1, {vol:.13}); tone(990, .07, .16, {vol:.12}); },
+    uncheck: function(){ tone(700, 0, .14, {to:420, vol:.1}); },
+    right: function(){ [523, 659, 784, 1047].forEach(function(f, k){ tone(f, k * .09, .3, {type:'triangle', vol:.16}); }); },
+    gentle: function(){ tone(392, 0, .22, {type:'triangle', vol:.13}); tone(330, .16, .34, {type:'triangle', vol:.12}); },
+    bell: function(big){
+      var f = big ? 1047 : 880;
+      tone(f, 0, big ? 1.1 : .6, {vol: big ? .18 : .13});
+      tone(f * 2.01, 0, big ? .7 : .35, {vol:.05});
+      if (big) { tone(1319, .12, .9, {vol:.12}); tone(1568, .24, 1, {vol:.12}); }
+    },
+    stomp: function(n){ for (var k = 0; k < n; k++) { tone(85, k * .32, .22, {to:45, vol:.32}); noise(k * .32, .1, 180, 90, .12); } },
+    trumpet: function(start){
+      var t = ctx.currentTime + (start || 0);
+      var o = ctx.createOscillator(); o.type = 'sawtooth';
+      var lfo = ctx.createOscillator(), lg = ctx.createGain();
+      lfo.frequency.value = 9; lg.gain.value = 14; lfo.connect(lg); lg.connect(o.frequency);
+      var lp = ctx.createBiquadFilter(); lp.type = 'lowpass';
+      lp.frequency.setValueAtTime(900, t); lp.frequency.linearRampToValueAtTime(2200, t + .35); lp.frequency.linearRampToValueAtTime(700, t + 1);
+      var g = ctx.createGain();
+      o.frequency.setValueAtTime(220, t); o.frequency.exponentialRampToValueAtTime(520, t + .3);
+      o.frequency.exponentialRampToValueAtTime(380, t + .75); o.frequency.exponentialRampToValueAtTime(300, t + 1);
+      g.gain.setValueAtTime(.0001, t); g.gain.exponentialRampToValueAtTime(.14, t + .08);
+      g.gain.setValueAtTime(.14, t + .7); g.gain.exponentialRampToValueAtTime(.0001, t + 1.05);
+      o.connect(lp); lp.connect(g); g.connect(master());
+      o.start(t); lfo.start(t); o.stop(t + 1.1); lfo.stop(t + 1.1);
+    },
+    chirps: function(dur){
+      for (var k = 0; k < Math.floor(dur / .12); k++) {
+        var s = k * .12 + Math.random() * .05, f = 2200 + Math.random() * 1400;
+        tone(f, s, .07, {to: f * 1.35, vol:.05});
+      }
+    },
+    pebbles: function(start, n){
+      for (var k = 0; k < n; k++) {
+        var s = start + k * .07 + Math.random() * .04;
+        tone(1600 + Math.random() * 800, s, .04, {type:'square', vol:.03});
+        noise(s, .05, 2500, 1200, .08);
+      }
+    },
+    fanfare: function(){
+      [[523,0],[659,.14],[784,.28],[1047,.42],[784,.62],[1047,.76]].forEach(function(p){ tone(p[0], p[1], .3, {type:'triangle', vol:.16}); });
+      tone(1319, .92, .8, {type:'triangle', vol:.14});
+    }
+  };
+  function play(name, a, b){
+    if (!soundOn || !unlocked || !ctx) return;
+    try { sfx[name](a, b); } catch(e) {}
+  }
+  var soundBtn = document.getElementById('soundBtn');
+  function renderSoundBtn(){
+    soundBtn.setAttribute('aria-pressed', soundOn);
+    document.getElementById('soundLbl').textContent = soundOn ? 'Sound on' : 'Sound off';
+    document.getElementById('waves').setAttribute('visibility', soundOn ? 'visible' : 'hidden');
+  }
+  soundBtn.addEventListener('click', function(){
+    soundOn = !soundOn;
+    try { localStorage.setItem('maulid-week4-sound', soundOn ? 'on' : 'off'); } catch(e) {}
+    renderSoundBtn();
+    if (soundOn) { unlock(); play('check'); }
+  });
+  renderSoundBtn();
+
+  /* Read aloud, using the device's own English voice */
+  var synth = window.speechSynthesis, voice = null, speaking = false, speakId = 0;
+  var readBtn = document.getElementById('readBtn');
+  if (!synth || !window.SpeechSynthesisUtterance) readBtn.hidden = true;
+  function pickVoice(){
+    if (!synth) return;
+    var vs = synth.getVoices() || [];
+    var prefs = ['en-AU', 'en-GB', 'en-US', 'en'];
+    for (var p = 0; p < prefs.length; p++) {
+      for (var k = 0; k < vs.length; k++) {
+        if ((vs[k].lang || '').replace('_', '-').indexOf(prefs[p]) === 0) { voice = vs[k]; return; }
+      }
+    }
+  }
+  if (synth) { pickVoice(); try { synth.addEventListener('voiceschanged', pickVoice); } catch(e) { synth.onvoiceschanged = pickVoice; } }
+  function setSpeaking(on){
+    speaking = on;
+    readBtn.classList.toggle('speaking', on);
+    document.getElementById('readLbl').textContent = on ? 'Stop reading' : 'Read aloud';
+  }
+  function stopSpeech(){
+    speakId++;
+    if (synth) { try { synth.cancel(); } catch(e) {} }
+    setSpeaking(false);
+  }
+  function say(text){
+    if (!synth || !text) return;
+    stopSpeech();
+    var id = speakId;
+    var parts = text.match(/[^.!?]+[.!?]*/g) || [text];
+    setSpeaking(true);
+    parts.forEach(function(part, k){
+      var u = new SpeechSynthesisUtterance(part.trim());
+      if (voice) { u.voice = voice; u.lang = voice.lang; } else { u.lang = 'en-AU'; }
+      u.rate = 0.9; u.pitch = 1.08;
+      if (k === parts.length - 1) u.onend = function(){ if (id === speakId) setSpeaking(false); };
+      u.onerror = function(){ if (id === speakId) setSpeaking(false); };
+      try { synth.speak(u); } catch(e) { setSpeaking(false); }
+    });
+  }
+  function narrate(i){
+    switch (i) {
+      case 0: return "Assalamu'alaikum, friends! Today we will learn about the birthday of Prophet Muhammad, peace be upon him. He was the most honest and kind person who ever lived. Let's start the story!";
+      case 1: return "Prophet Muhammad, peace be upon him, was born on a Monday, the twelfth of Rabiul Awwal, in the Year of the Elephant, around the year five hundred and seventy. He was born in Mecca, in the Banu Hashim clan of the Quraysh tribe. Remembering the day he was born is called Maulid Nabi.";
+      case 2: return story[step];
+      case 3: return "This story is in the Quran, in Surah Al-Fil. Allah tells us: He sent against them flocks of birds, that pelted them with stones of baked clay, leaving them like chewed up straw.";
+      case 4: var d = life[+range.value]; return d.title + '. ' + d.text;
+      case 5:
+        var sel = document.querySelector('.person[aria-pressed="true"]');
+        return sel ? who[+sel.dataset.who] : "This is the family of Prophet Muhammad. His grandfather was Abdul Muttalib. His father was Abdullah, and his mother was Aminah. His uncle, Abu Talib, raised him. Tap a name to learn more, and let's sing the song together!";
+      case 6: return "People gave the Prophet two special names. Al-Amin, which means the Trustworthy. And As-Sadiq, which means the Truthful. He never lied, never cheated, and never broke a promise.";
+      case 7:
+        var t = "One day, the Prophet gathered the people of Quraysh at Mount Safa and asked: O people of Quraysh, if I told you that an army is coming at you from behind this mountain, would you believe me?";
+        return document.getElementById('safaAnswer').hidden ? t + " What do you think they answered?" : t + " They all said: Yes! We have never heard you tell a lie.";
+      case 8: return "How can we commemorate Maulid? Send salawat to him as many times as you can. Practice his habits every day. Learn more about his life. And be kind to people, plants and animals. The Prophet said: Do not belittle any good deed, even meeting your brother with a cheerful face.";
+      case 9:
+        if (qi >= Q.length) return 'You got ' + score + ' out of ' + Q.length + '. Thank you! See you next week.';
+        var q = Q[qi];
+        return q.q + ' Is it ' + q.o.slice(0, -1).join(', ') + ', or ' + q.o[q.o.length - 1] + '?';
+    }
+    return '';
+  }
+  readBtn.addEventListener('click', function(){ if (speaking) stopSpeech(); else say(narrate(cur)); });
+
+  scenes.forEach(function(s, i){
+    var d = document.createElement('button');
+    d.className = 'dot';
+    d.setAttribute('aria-label', (i+1) + '. ' + s.dataset.name);
+    d.addEventListener('click', function(){ go(i); });
+    dotsEl.appendChild(d);
+  });
+
+  function go(i){
+    if (i < 0 || i >= scenes.length) return;
+    stopSpeech();
+    if (i !== cur) play('page');
+    scenes[cur].hidden = true;
+    cur = i; seen[i] = true;
+    scenes[cur].hidden = false;
+    countEl.textContent = (cur+1) + ' / ' + scenes.length;
+    Array.prototype.forEach.call(dotsEl.children, function(d, k){
+      if (k === cur) d.setAttribute('aria-current','step'); else d.removeAttribute('aria-current');
+      d.classList.toggle('seen', !!seen[k] && k !== cur);
+    });
+    prevBtn.disabled = cur === 0;
+    nextBtn.disabled = cur === scenes.length - 1;
+    document.getElementById('scroller').scrollTop = 0;
+  }
+  prevBtn.addEventListener('click', function(){ go(cur-1); });
+  nextBtn.addEventListener('click', function(){ go(cur+1); });
+  document.querySelectorAll('[data-go="next"]').forEach(function(b){ b.addEventListener('click', function(){ go(cur+1); }); });
+  document.addEventListener('keydown', function(e){
+    if (e.target && (e.target.tagName === 'INPUT')) return;
+    if (e.key === 'ArrowRight' || e.key === 'PageDown') { go(cur+1); }
+    if (e.key === 'ArrowLeft' || e.key === 'PageUp') { go(cur-1); }
+  });
+
+
+  /* Full screen (blocked when the lesson sits inside another page, such as Google Sites) */
+  function fullscreen(){
+    var el = document.documentElement;
+    try { if (document.fullscreenElement) { document.exitFullscreen().catch(function(){}); return; } } catch(e) {}
+    if (!document.fullscreenEnabled || !el.requestFullscreen) { fsHelp(); return; }
+    try { var p = el.requestFullscreen(); if (p && p.catch) p.catch(function(){ fsHelp(); }); } catch(e) { fsHelp(); }
+  }
+  function fsHelp(){
+    var t = document.getElementById('fsHelp');
+    if (!t) {
+      t = document.createElement('div'); t.id = 'fsHelp'; t.setAttribute('role','status');
+      t.style.cssText = 'position:fixed;left:50%;bottom:84px;transform:translateX(-50%);z-index:60;max-width:min(560px,92vw);background:#fffdf8;color:#2b2320;border:1px solid rgba(0,0,0,.14);border-radius:16px;box-shadow:0 12px 34px rgba(0,0,0,.25);padding:14px 16px;font:15px/1.45 system-ui,sans-serif;display:flex;gap:12px;align-items:flex-start';
+      var self = /^https?:/.test(location.href) && window.top !== window ? location.href.split('#')[0] : '';
+      t.innerHTML = '<div style="flex:1"><b>Full screen is blocked here.</b> This happens when the lesson is shown inside another page, like Google Sites. '
+        + (self ? '<a href="' + self + '" target="_blank" rel="noopener" style="color:#9a4d16;font-weight:700">Open the lesson in its own tab</a> and press Full screen there, or press ' : 'Press ')
+        + '<b>F11</b> (Windows) or <b>Ctrl + Cmd + F</b> (Mac).</div>'
+        + '<button type="button" aria-label="Close" style="border:0;background:transparent;font-size:20px;line-height:1;cursor:pointer;color:#555">×</button>';
+      t.querySelector('button').addEventListener('click', function(){ t.hidden = true; });
+      document.body.appendChild(t);
+    }
+    t.hidden = false; clearTimeout(t._h); t._h = setTimeout(function(){ t.hidden = true; }, 12000);
+  }
+  document.getElementById('fsBtn').addEventListener('click', fullscreen);
+  document.addEventListener('keydown', function(e){
+    if (e.altKey || e.ctrlKey || e.metaKey) return;
+    if (e.target && e.target.tagName === 'INPUT') return;
+    if (e.key === 'f' || e.key === 'F') fullscreen();
+  });
+
+  /* Born day */
+  var ago = new Date().getFullYear() - 570;
+  document.getElementById('yearsAgo').textContent = 'about ' + ago.toLocaleString('en-US') + ' years ago';
+  document.querySelectorAll('.reveal').forEach(function(b){
+    b.addEventListener('click', function(){
+      var open = b.getAttribute('aria-expanded') !== 'true';
+      b.setAttribute('aria-expanded', open);
+      b.querySelector('.a').hidden = !open;
+      b.querySelector('.hint').hidden = open;
+      play(open ? 'reveal' : 'tap');
+    });
+  });
+
+  /* Elephant story */
+  var svg = document.getElementById('eleScene');
+  var march = document.getElementById('march');
+  var birdsG = document.getElementById('birds');
+  var stonesG = document.getElementById('stones');
+  var NS = 'http://www.w3.org/2000/svg';
+  for (var i = 0; i < 16; i++){
+    var u = document.createElementNS(NS, 'use');
+    u.setAttribute('href', '#bird');
+    u.setAttribute('width', 26); u.setAttribute('height', 11);
+    u.setAttribute('class', 'bird');
+    u.style.setProperty('--sx', (650 + (i%4)*20) + 'px');
+    u.style.setProperty('--sy', (10 + (i*13)%70) + 'px');
+    u.style.setProperty('--mx', (150 + (i*37)%240) + 'px');
+    u.style.setProperty('--my', (90 + (i*17)%45) + 'px');
+    u.style.setProperty('--d', (i*0.08).toFixed(2) + 's');
+    birdsG.appendChild(u);
+  }
+  for (var j = 0; j < 14; j++){
+    var c = document.createElementNS(NS, 'circle');
+    c.setAttribute('cx', 165 + (j*41)%230);
+    c.setAttribute('cy', 175 + (j*7)%25);
+    c.setAttribute('r', 3.5);
+    c.setAttribute('fill', '#A0522D');
+    c.setAttribute('class', 'stone');
+    c.style.setProperty('--d', (1.4 + j*0.07).toFixed(2) + 's');
+    stonesG.appendChild(c);
+  }
+  var story = [
+    'Long ago, Abraha, the ruler of Yemen, wanted all the Arab tribes to go on pilgrimage to Yemen instead of to the Kaaba in Mecca.',
+    'So he marched on Mecca with a big army and war elephants, because he wanted to destroy the sacred Kaaba.',
+    'But the Kaaba is the house of Allah, and Allah protected it. Tap the green button to see what happened!',
+    'Allah sent flocks of small birds that threw stones of baked clay at the army, and the army was beaten. This happened in the year Prophet Muhammad SAW was born, so people call it the Year of the Elephant.'
+  ];
+  var step = 0, endTimer = null;
+  var storyText = document.getElementById('storyText');
+  var storyNext = document.getElementById('storyNext');
+  var sendBirds = document.getElementById('sendBirds');
+  var replay = document.getElementById('storyReplay');
+  var stepDots = document.querySelectorAll('.story .steps span');
+  function renderStory(){
+    storyText.textContent = story[step];
+    march.classList.toggle('go', step >= 1);
+    storyNext.hidden = step >= 2;
+    sendBirds.hidden = step !== 2;
+    replay.hidden = step !== 3;
+    stepDots.forEach(function(s, k){ s.classList.toggle('on', k <= step); });
+    svg.setAttribute('aria-label', step === 0 ? "Abraha's elephants far from the Kaaba" : step < 3 ? "The elephants march toward the Kaaba" : "Birds drive the army away and the Kaaba is safe");
+  }
+  storyNext.addEventListener('click', function(){
+    step++; renderStory();
+    if (step === 1) { play('stomp', 6); play('trumpet', 0.5); } else { play('tap'); }
+  });
+  sendBirds.addEventListener('click', function(){
+    svg.classList.add('attack');
+    sendBirds.hidden = true;
+    play('chirps', 3.4); play('pebbles', 1.4, 14); play('trumpet', 2.3);
+    clearTimeout(endTimer);
+    endTimer = setTimeout(function(){ step = 3; renderStory(); play('right'); }, reduce ? 50 : 3700);
+  });
+  replay.addEventListener('click', function(){
+    play('tap');
+    clearTimeout(endTimer);
+    svg.classList.remove('attack');
+    step = 0; renderStory();
+  });
+  renderStory();
+
+  /* Al-Fil */
+  document.querySelectorAll('.ayah button').forEach(function(b){
+    b.addEventListener('click', function(){
+      var m = b.nextElementSibling;
+      var open = m.hidden;
+      m.hidden = !open;
+      b.setAttribute('aria-expanded', open);
+      b.textContent = open ? 'Hide meaning' : 'What does it mean?';
+      play(open ? 'reveal' : 'tap');
+    });
+  });
+
+  /* Childhood */
+  var life = [
+    {age:'0', unit:'before birth', title:'Born an orphan', text:'His father, Abdullah, passed away while he was still in his mother’s womb.'},
+    {age:'6', unit:'years old', title:'His mother passes away', text:'His mother, Aminah, passed away when he was around 6. His grandfather, Abdul Muttalib, took care of him.'},
+    {age:'8', unit:'years old', title:'Living with Uncle Abu Talib', text:'After his grandfather passed away, his uncle Abu Talib raised him. He helped by looking after sheep as a shepherd in the hills outside Mecca.'},
+    {age:'12', unit:'years old', title:'A trip to Syria', text:'He travelled with Abu Talib on a trade caravan all the way to Syria.'}
+  ];
+  var range = document.getElementById('ageRange');
+  var stops = document.querySelectorAll('.stop');
+  function renderLife(i){
+    var d = life[i];
+    document.getElementById('lifeAge').innerHTML = (i === 0 ? '♥' : d.age) + '<small>' + d.unit + '</small>';
+    document.getElementById('lifeTitle').textContent = d.title;
+    document.getElementById('lifeText').textContent = d.text;
+    range.value = i;
+    stops.forEach(function(s, k){ s.setAttribute('aria-current', k === i ? 'true' : 'false'); });
+  }
+  range.addEventListener('input', function(){ renderLife(+range.value); play('tap'); });
+  stops.forEach(function(s){ s.addEventListener('click', function(){ renderLife(+s.dataset.i); play('tap'); }); });
+  renderLife(0);
+
+  /* Family */
+  var who = [
+    'Abdul Muttalib was his grandfather. He loved him dearly and cared for him until he was 8.',
+    'Abdullah was his father. He passed away before the Prophet was born.',
+    'Aminah was his mother. She passed away when he was around 6 years old.',
+    'Abu Talib was his uncle. He raised him and took him on a trade caravan to Syria.',
+    'Prophet Muhammad SAW, the last messenger of Allah, born in Mecca in the Year of the Elephant.'
+  ];
+  var people = document.querySelectorAll('.person');
+  people.forEach(function(p){
+    p.addEventListener('click', function(){
+      people.forEach(function(q){ q.setAttribute('aria-pressed', q === p ? 'true' : 'false'); });
+      document.getElementById('whoText').textContent = who[+p.dataset.who];
+      play('reveal');
+    });
+  });
+
+  /* Flip cards */
+  document.querySelectorAll('.flip').forEach(function(f){
+    f.addEventListener('click', function(){ f.setAttribute('aria-pressed', f.getAttribute('aria-pressed') !== 'true'); play('flip'); });
+  });
+
+  /* Safa */
+  document.querySelectorAll('#safaChoices [data-pick]').forEach(function(b){
+    b.addEventListener('click', function(){
+      document.getElementById('safaVerdict').textContent = b.dataset.pick === 'yes' ? 'You got it!' : 'Not quite! Here is what really happened:';
+      document.getElementById('safaAnswer').hidden = false;
+      play(b.dataset.pick === 'yes' ? 'right' : 'gentle');
+    });
+  });
+
+  /* Promises */
+  var promises = document.querySelectorAll('.promise');
+  function countPromises(){
+    var n = 0; promises.forEach(function(p){ if (p.getAttribute('aria-pressed') === 'true') n++; });
+    document.getElementById('promiseCount').textContent = n + ' of ' + promises.length;
+  }
+  promises.forEach(function(p){
+    p.addEventListener('click', function(){
+      var on = p.getAttribute('aria-pressed') !== 'true';
+      p.setAttribute('aria-pressed', on); countPromises();
+      play(on ? 'check' : 'uncheck');
+    });
+  });
+
+  /* Salawat counter */
+  var KEY = 'maulid-week4-salawat', sal = 0;
+  try { sal = parseInt(localStorage.getItem(KEY), 10) || 0; } catch(e) {}
+  var salN = document.getElementById('salawatN');
+  function setSal(v){ sal = v; salN.textContent = sal.toLocaleString('en-US'); try { localStorage.setItem(KEY, sal); } catch(e) {} }
+  setSal(sal);
+  document.getElementById('salawatTap').addEventListener('click', function(){ setSal(sal + 1); play('bell', sal % 10 === 0); });
+  document.getElementById('salawatReset').addEventListener('click', function(){ setSal(0); });
+
+  /* Quiz */
+  var Q = [
+    {q:'In which month was Prophet Muhammad SAW born?', o:['Ramadan','Rabiul Awwal','Muharram','Syawal'], a:1, why:'He was born on the 12th of Rabiul Awwal.'},
+    {q:'Why is that year called the Year of the Elephant?', o:['Abraha came with war elephants','There was a new zoo in Mecca','Elephants were born that year','The Prophet rode an elephant'], a:0, why:'Abraha marched on Mecca with war elephants to destroy the Kaaba.'},
+    {q:'What did Allah send to protect the Kaaba?', o:['Strong rain','Lions','Flocks of small birds','A big wind'], a:2, why:'Surah Al-Fil tells us Allah sent flocks of birds with stones of baked clay.'},
+    {q:'Who did he travel with to Syria when he was 12?', o:['His father','Uncle Abu Talib','Abraha','His grandfather'], a:1, why:'He joined his uncle Abu Talib on a trade caravan.'},
+    {q:'What does Al-Amin mean?', o:['The Strong','The Rich','The Trustworthy','The Fast'], a:2, why:'Al-Amin means the Trustworthy. He never lied, cheated or broke a promise.'}
+  ];
+  var qi = 0, score = 0;
+  var quiz = document.getElementById('quiz');
+  var quizHead = document.getElementById('quizHead');
+  function el(tag, cls, text){ var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+  function renderQ(){
+    quiz.innerHTML = '';
+    quizHead.hidden = false;
+    var d = Q[qi];
+    quiz.appendChild(el('div', 'qnum', 'Question ' + (qi+1) + ' of ' + Q.length));
+    quiz.appendChild(el('div', 'qtext', d.q));
+    var opts = el('div', 'opts');
+    var fb = el('p', 'feedback'); fb.setAttribute('aria-live','polite');
+    var nx = el('button', 'btn', qi === Q.length - 1 ? 'See my score' : 'Next question'); nx.hidden = true;
+    d.o.forEach(function(t, k){
+      var b = el('button', 'opt', t);
+      b.addEventListener('click', function(){
+        var btns = opts.querySelectorAll('.opt');
+        btns.forEach(function(x){ x.disabled = true; });
+        btns[d.a].classList.add('right');
+        if (k === d.a) { score++; fb.innerHTML = '<b>Masya Allah, correct!</b> '; play('right'); }
+        else { b.classList.add('wrong'); fb.innerHTML = '<b>Good try!</b> '; play('gentle'); }
+        fb.appendChild(document.createTextNode(d.why));
+        nx.hidden = false; nx.focus();
+      });
+      opts.appendChild(b);
+    });
+    quiz.appendChild(opts); quiz.appendChild(fb); quiz.appendChild(nx);
+    nx.addEventListener('click', function(){ qi++; if (qi < Q.length) renderQ(); else renderEnd(); });
+  }
+  function renderEnd(){
+    quiz.innerHTML = '';
+    quizHead.hidden = true;
+    var r = el('div', 'result');
+    r.appendChild(el('div', 'eyebrow', 'Quiz finished'));
+    r.appendChild(el('div', 'score', 'You got ' + score + ' out of ' + Q.length + (score === Q.length ? '. Perfect, masya Allah!' : '. Well done!')));
+    r.appendChild(el('div', 'thanks', 'Thank You!'));
+    r.appendChild(el('p', 'lead', 'See you next week :)'));
+    var again = el('button', 'btn ghost', 'Play the quiz again');
+    again.addEventListener('click', function(){ qi = 0; score = 0; renderQ(); });
+    r.appendChild(again);
+    quiz.appendChild(r);
+    play('fanfare');
+    if (!reduce) shower();
+  }
+  function shower(){
+    var stage = document.getElementById('stage');
+    for (var k = 0; k < 18; k++){
+      var f = document.createElementNS(NS, 'svg');
+      f.setAttribute('viewBox', '-30 -30 60 60');
+      f.setAttribute('class', 'fall' + (k % 3 === 0 ? ' c' : ''));
+      f.style.left = (Math.random()*92) + '%';
+      f.style.animationDelay = (Math.random()*0.9).toFixed(2) + 's';
+      var use = document.createElementNS(NS, 'use'); use.setAttribute('href', '#flower');
+      f.appendChild(use); stage.appendChild(f);
+      (function(n){ setTimeout(function(){ n.remove(); }, 3800); })(f);
+    }
+  }
+  renderQ();
+
+  var m = /^#s(\d+)$/.exec(location.hash || '');
+  go(m ? Math.min(Math.max(+m[1]-1, 0), scenes.length-1) : 0);
+})();
+</script>
+</body>
+</html>
