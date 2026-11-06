@@ -1,0 +1,680 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Idul Fitri · TPA Week 8</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Fredoka:wght@400..700&family=Nunito+Sans:wght@400;600;700;800&display=swap">
+<style>
+/* Layout: one lesson "screen" at a time on a night-sky stage, like presenting slides; top bar for stars + tools, bottom bar for Back/Next. Deliberately single dark theme (Eid night). */
+:root{
+  color-scheme: dark;
+  --night:#0B2B2A; --night-2:#123F3D; --night-3:#1B5652; --line:#2E6B66;
+  --gold:#F2C14E; --gold-deep:#C8901C; --cream:#FBF6EA; --mist:#BFD8D5; --soft:#D5E6E2;
+  --mint:#7FD1B0; --coral:#F28C6B; --ink:#0F3B3A;
+  --display:'Fredoka', 'Trebuchet MS', Arial, sans-serif;
+  --body:'Nunito Sans', Arial, sans-serif;
+  --arabic:'Amiri', 'Times New Roman', serif;
+}
+html,body{height:100%;margin:0}
+[hidden]{display:none!important}
+img{max-width:100%}
+body{padding-top:env(safe-area-inset-top,0px)}
+body{background:var(--night);color:var(--cream);font-family:var(--body);font-size:18px;line-height:1.5;
+  background-image:
+    radial-gradient(1.5px 1.5px at 12% 18%, rgba(251,246,234,.7) 50%, transparent 51%),
+    radial-gradient(1.5px 1.5px at 78% 12%, rgba(251,246,234,.6) 50%, transparent 51%),
+    radial-gradient(2px 2px at 64% 34%, rgba(242,193,78,.8) 50%, transparent 51%),
+    radial-gradient(1.5px 1.5px at 30% 62%, rgba(251,246,234,.5) 50%, transparent 51%),
+    radial-gradient(1.5px 1.5px at 90% 70%, rgba(251,246,234,.6) 50%, transparent 51%),
+    radial-gradient(2px 2px at 6% 82%, rgba(242,193,78,.6) 50%, transparent 51%),
+    radial-gradient(ellipse at 70% 0%, var(--night-3) 0%, var(--night) 60%);
+  background-attachment:fixed;}
+.app{height:100%;display:grid;grid-template-rows:auto 1fr auto;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+
+/* top bar */
+.top{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;padding-block:14px;border-bottom:1px solid var(--line)}
+.brand{display:flex;flex-direction:column;line-height:1.15;min-width:0;margin-right:auto}
+.brand b{font-family:var(--display);font-weight:600;font-size:20px;color:var(--gold)}
+.brand span{font-size:14px;color:var(--mist);letter-spacing:.06em;text-transform:uppercase}
+.stars{font-family:var(--display);font-weight:600;font-size:20px;color:var(--gold);display:flex;align-items:center;gap:6px;font-variant-numeric:tabular-nums}
+.tools{display:flex;flex-wrap:wrap;gap:8px}
+.tool{background:transparent;border:1.5px solid var(--line);border-radius:999px;padding:6px 14px;font-size:15px;font-weight:700;color:var(--soft)}
+.tool[aria-pressed="true"]{background:var(--gold);border-color:var(--gold);color:var(--ink)}
+.tool:hover{border-color:var(--gold)}
+
+/* stage */
+.stage{overflow:auto;padding-block:28px;min-height:0}
+.slide{max-width:1080px;margin-inline:auto;display:flex;flex-direction:column;gap:22px;animation:rise .45s ease both}
+.slide[hidden]{display:none!important}
+@keyframes rise{from{opacity:.0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.eyebrow{font-weight:800;font-size:15px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
+h1,h2{font-family:var(--display);font-weight:600;line-height:1.05;text-wrap:balance;margin:0}
+h1{font-size:clamp(56px, 11vw, 120px)}
+h2{font-size:clamp(38px, 6vw, 64px)}
+h3{font-family:var(--display);font-weight:600;font-size:26px;margin:0;line-height:1.2}
+p{margin:0}
+.lead{font-size:clamp(19px, 2.2vw, 23px);color:var(--soft);max-width:62ch}
+.ar{font-family:var(--arabic);direction:rtl;color:var(--gold);line-height:1.7}
+.src{font-size:15px;color:var(--mist)}
+.hint{font-size:16px;font-weight:700;color:var(--mint)}
+.panel{background:var(--night-2);border:1.5px solid var(--line);border-radius:24px;padding:24px}
+.row{display:flex;flex-wrap:wrap;gap:16px}
+.row > *{flex:1 1 220px;min-width:0}
+.btn{background:var(--gold);color:var(--ink);border:0;border-radius:999px;padding:12px 26px;font-family:var(--display);font-weight:600;font-size:20px}
+.btn.ghost{background:transparent;color:var(--gold);border:2px solid var(--gold)}
+.btn:hover{filter:brightness(1.06)}
+.btns{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.good{color:var(--mint);font-weight:800}
+.reveal{border-left:4px solid var(--gold);padding:14px 18px;background:rgba(242,193,78,.08);border-radius:0 16px 16px 0}
+
+/* opening lanterns */
+.lanterns{display:flex;gap:clamp(12px, 4vw, 48px);align-items:flex-start;flex-wrap:wrap}
+.lantern{background:none;border:0;padding:0;border-radius:20px}
+.lantern svg{display:block;width:clamp(70px, 12vw, 110px);height:auto;transition:filter .4s}
+.lantern .win{fill:#3B3A2C;transition:fill .4s}
+.lantern .glass{fill:#6E5A2C;transition:fill .4s}
+.lantern.lit .win{fill:#FFE7A3}
+.lantern.lit .glass{fill:var(--gold-deep)}
+.lantern.lit svg{filter:drop-shadow(0 0 22px rgba(255,217,120,.75))}
+.lantern:nth-child(2){margin-top:40px}.lantern:nth-child(3){margin-top:12px}
+
+/* flip cards */
+.flips{display:grid;grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));gap:18px}
+.flip{background:none;border:0;padding:0;perspective:1000px;min-height:240px;text-align:left}
+.flip .in{position:relative;width:100%;height:100%;min-height:inherit;transition:transform .6s;transform-style:preserve-3d}
+.flip.open .in{transform:rotateY(180deg)}
+.flip .face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:24px;padding:24px;display:flex;flex-direction:column;justify-content:center;gap:8px}
+.flip .front{background:var(--night-2);border:2px dashed var(--line);align-items:center;text-align:center}
+.flip .back{background:var(--cream);color:var(--ink);transform:rotateY(180deg)}
+.flip .back h3{color:#2F7A5F}
+.flip .tap{font-size:15px;font-weight:700;color:var(--mist)}
+.flip.small{min-height:200px}
+
+/* dialogue */
+.lines{display:flex;flex-direction:column;gap:12px;min-height:120px}
+.line{max-width:760px;border-radius:20px;padding:14px 18px;animation:rise .35s ease both}
+.line .who{display:block;font-size:13px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;margin-bottom:4px}
+.line.narrator{background:var(--night-2);border:1.5px solid var(--line)}
+.line.narrator .who{color:var(--mist)}
+.line.prophet{background:var(--cream);color:var(--ink);align-self:flex-start}
+.line.prophet .who{color:var(--gold-deep)}
+.line.people{background:var(--night-3);align-self:flex-end}
+.line.people .who{color:var(--mint)}
+.line .ar{font-size:26px;color:var(--gold-deep);display:block;margin-top:6px}
+
+/* moon sky */
+.sky{position:relative;height:clamp(240px, 38vw, 340px);border-radius:24px;overflow:hidden;
+  background:linear-gradient(180deg,#0A2422 0%,#143F3C 55%,#3B5B4F 80%,#C98A4B 100%);border:1.5px solid var(--line)}
+.sky .ground{position:absolute;left:0;right:0;bottom:0;height:18%;background:#071F1E}
+.hilal{position:absolute;width:54px;height:54px;transform:translate(-50%,-50%)}
+.cloud{position:absolute;transform:translate(-50%,-50%);width:clamp(110px, 20vw, 170px);height:clamp(64px, 11vw, 90px);border:0;padding:0;background:none;transition:transform .7s ease, opacity .7s}
+.cloud svg{width:100%;height:100%}
+.cloud.gone{opacity:0;transform:translate(-50%,-50%) translateX(140px);pointer-events:none}
+.sky-msg{position:absolute;left:16px;top:14px;font-family:var(--display);font-weight:600;font-size:20px;color:var(--cream);text-shadow:0 2px 8px rgba(0,0,0,.4)}
+
+/* zakat */
+.bags{display:flex;flex-wrap:wrap;gap:12px;min-height:116px;align-items:flex-end}
+.bag{background:none;border:0;padding:0;display:flex;flex-direction:column;align-items:center;gap:4px;font-weight:800;font-size:15px;color:var(--soft);transition:transform .2s}
+.bag:hover{transform:translateY(-3px)}
+.bag svg{width:64px;height:76px}
+.basket{min-height:150px;border:2px dashed var(--gold);border-radius:24px;padding:16px;display:flex;flex-direction:column;gap:10px}
+.basket .bags{min-height:80px}
+.basket .bag{pointer-events:none}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip{background:var(--night-2);border:1.5px solid var(--line);border-radius:999px;padding:8px 16px;font-weight:700;font-size:16px}
+.chip b{color:var(--gold)}
+
+/* order game */
+.slots{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit, minmax(160px, 1fr));gap:12px}
+.slot{min-height:84px;border:2px dashed var(--line);border-radius:18px;padding:12px;display:flex;gap:10px;align-items:center}
+.slot .n{flex:none;width:36px;height:36px;border-radius:50%;background:var(--night-3);display:grid;place-items:center;font-family:var(--display);font-weight:600}
+.slot.filled{border-style:solid;border-color:var(--mint);background:rgba(127,209,176,.1)}
+.slot.filled .n{background:var(--mint);color:var(--ink)}
+.slot span:last-child{font-weight:700;line-height:1.25}
+.pool{display:flex;flex-wrap:wrap;gap:10px}
+.pick{background:var(--cream);color:var(--ink);border:0;border-radius:16px;padding:12px 16px;font-weight:800;font-size:17px}
+.pick.wrong{animation:shake .4s;background:var(--coral)}
+@keyframes shake{0%,100%{transform:none}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+
+/* takbir */
+.tk{display:flex;flex-direction:column;gap:8px}
+.tk-line{border-radius:16px;padding:10px 16px;opacity:.35;transition:opacity .3s, background .3s}
+.tk-line.on{opacity:1;background:rgba(242,193,78,.1)}
+.tk-line .ar{font-size:clamp(28px, 4.4vw, 46px);display:block;text-align:right}
+.tk-line .tr{color:var(--soft);font-weight:700}
+
+/* fresh page */
+.paper{position:relative;background:var(--cream);color:var(--ink);border-radius:20px;padding:22px;min-height:200px;display:flex;flex-wrap:wrap;gap:14px;align-content:flex-start}
+.paper::before{content:"";position:absolute;inset:0;border-radius:20px;background:repeating-linear-gradient(180deg, transparent 0 38px, rgba(15,59,58,.08) 38px 40px);pointer-events:none}
+.smudge{position:relative;border:0;border-radius:40% 55% 45% 60%;background:#8C8270;color:#FBF6EA;padding:16px 22px;font-weight:800;transition:opacity .5s, transform .5s}
+.smudge.gone{opacity:0;transform:scale(.6);pointer-events:none}
+.paper .clean{position:relative;font-family:var(--display);font-weight:600;font-size:26px;color:#2F7A5F;align-self:center}
+
+/* syawal */
+.days{display:flex;flex-wrap:wrap;gap:14px}
+.day{width:78px;height:78px;border-radius:50%;border:2px dashed var(--gold);background:transparent;display:grid;place-items:center;font-family:var(--display);font-weight:600;font-size:18px;color:var(--gold);transition:background .3s}
+.day.done{background:var(--gold);color:var(--ink);border-style:solid}
+.habits{display:grid;grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));gap:12px}
+.habit{background:var(--cream);color:var(--ink);border-radius:18px;padding:18px;font-family:var(--display);font-weight:600;font-size:21px}
+
+/* quiz */
+.q{font-family:var(--display);font-weight:600;font-size:clamp(24px, 3.4vw, 34px);line-height:1.2}
+.opts{display:grid;gap:10px}
+.opt{text-align:left;background:var(--night-2);border:2px solid var(--line);border-radius:18px;padding:14px 18px;font-weight:700;font-size:19px}
+.opt:hover{border-color:var(--gold)}
+.opt.right{background:var(--mint);border-color:var(--mint);color:var(--ink)}
+.opt.no{border-color:var(--coral);color:var(--coral)}
+.qcount{font-weight:800;color:var(--mist);font-variant-numeric:tabular-nums}
+
+/* closing */
+.big-stars{font-family:var(--display);font-weight:600;font-size:clamp(30px, 5vw, 44px);color:var(--gold)}
+canvas.confetti{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:30}
+
+/* bottom nav + notes */
+.nav{display:flex;align-items:center;gap:14px;padding-block:12px calc(12px + env(safe-area-inset-bottom, 0px));border-top:1px solid var(--line)}
+.dots{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;flex:1;min-width:0}
+.dot{width:10px;height:10px;border-radius:50%;background:var(--line);border:0;padding:0}
+.dot.on{background:var(--gold);width:26px;border-radius:999px}
+.count{font-weight:800;color:var(--mist);font-variant-numeric:tabular-nums;white-space:nowrap}
+.notes{max-width:1080px;margin:18px auto 0;background:var(--cream);color:var(--ink);border-radius:20px;padding:18px 22px;font-size:17px}
+.notes b{display:block;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-deep);margin-bottom:6px}
+.kbd-hint{font-size:14px;color:var(--mist);text-align:center}
+@media (max-width:560px){ .nav .btn{padding:10px 18px;font-size:17px} .dots{display:none} .flip{min-height:200px} }
+@media (prefers-reduced-motion: reduce){ *{animation:none!important;transition:none!important} }
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="top">
+    <div class="brand"><b>TPA Khairu Ummah · Week 8</b><span>Idul Fitri</span></div>
+    <div class="stars" aria-live="polite"><span aria-hidden="true">★</span><span id="starCount">0</span><span style="color:var(--mist);font-size:16px">/ 15</span></div>
+    <div class="tools">
+      <button class="tool" id="readBtn" aria-pressed="false">Read aloud</button>
+      <button class="tool" id="soundBtn" aria-pressed="true">Sound on</button>
+      <button class="tool" id="notesBtn" aria-pressed="false">Teacher notes</button>
+      <button class="tool" id="fsBtn">Full screen</button>
+    </div>
+  </header>
+
+  <main class="stage" id="stage">
+
+    <!-- 1 Opening -->
+    <section class="slide" data-id="open">
+      <p class="eyebrow">Eid is coming!</p>
+      <h1>Eid al-Fitr</h1>
+      <p class="ar" style="font-size:clamp(40px, 7vw, 72px)">عِيدٌ مُبَارَكٌ</p>
+      <p class="lead">Ramadan is over, and today we learn why Eid is such a special day. Tap the lanterns to light them up!</p>
+      <div class="lanterns" id="lanterns"></div>
+      <p class="hint" id="lanternHint">0 of 3 lanterns lit</p>
+      <div class="btns"><button class="btn" data-go="next">Start the story</button></div>
+    </section>
+
+    <!-- 2 What -->
+    <section class="slide" data-id="what" hidden>
+      <p class="eyebrow">Let’s start</p>
+      <h2>What is Idul Fitri?</h2>
+      <p class="lead">It is the day of celebration right after Ramadan ends: <b style="color:var(--gold)">1 Syawal</b>. Tap each word to find out what it means.</p>
+      <div class="flips" id="nameFlips">
+        <button class="flip" aria-label="Flip the card for Eid"><div class="in">
+          <div class="face front"><p class="ar" style="font-size:72px">عِيد</p><h3>Eid</h3><p class="tap">Tap to flip</p></div>
+          <div class="face back"><h3>Eid = to return</h3><p>A celebration that comes back to us every year.</p></div>
+        </div></button>
+        <button class="flip" aria-label="Flip the card for Fitr"><div class="in">
+          <div class="face front"><p class="ar" style="font-size:72px">فِطْر</p><h3>Fitr</h3><p class="tap">Tap to flip</p></div>
+          <div class="face back"><h3>Fitr = to break the fast</h3><p>After a whole month of fasting, we can eat in the daytime again!</p></div>
+        </div></button>
+      </div>
+      <p class="reveal" id="whatDone" hidden>So Eid al-Fitr is a day to thank Allah for helping us finish Ramadan.</p>
+    </section>
+
+    <!-- 3 First Eid -->
+    <section class="slide" data-id="first" hidden>
+      <p class="eyebrow">Madinah · about 1,400 years ago</p>
+      <h2>The First Eid</h2>
+      <div class="lines" id="firstLines" aria-live="polite"></div>
+      <div class="btns"><button class="btn" id="firstNext">Next line</button><button class="btn ghost" id="firstReset">Start again</button></div>
+    </section>
+
+    <!-- 4 Moon -->
+    <section class="slide" data-id="moon" hidden>
+      <p class="eyebrow">How do we know it’s Eid?</p>
+      <h2>Looking for the Moon</h2>
+      <p class="lead">A new Islamic month starts when we see the <b style="color:var(--gold)">hilal</b>, the thin new crescent moon, after sunset. It’s the 29th night of Ramadan. Tap the clouds to find it!</p>
+      <div class="sky" id="sky"><div class="ground"></div><p class="sky-msg" id="skyMsg">Where is the hilal?</p></div>
+      <div class="btns"><button class="btn ghost" id="cloudyBtn">What if it’s cloudy all night?</button><button class="btn ghost" id="skyReset">Hide the moon again</button></div>
+      <p class="reveal" id="cloudyAns" hidden>Then we fast one more day, so Ramadan has 30 days. The Prophet SAW said: “Fast when you see it, and stop fasting when you see it. If it is cloudy, complete thirty days.” <span class="src">Sahih al-Bukhari 1909</span></p>
+    </section>
+
+    <!-- 5 Zakat -->
+    <section class="slide" data-id="zakat" hidden>
+      <p class="eyebrow">Before we celebrate</p>
+      <h2>Zakat al-Fitr</h2>
+      <p class="lead">Food we give to people in need, so that everyone can be happy on Eid. It is paid for <b>every</b> person in the family. Tap each bag to put it in the basket.</p>
+      <div class="row">
+        <div class="panel"><h3 style="margin-bottom:12px">Our family’s bags</h3><div class="bags" id="bagPool"></div></div>
+        <div class="basket"><h3 style="color:var(--gold)">Basket for families in need</h3><div class="bags" id="bagBasket"></div><p class="hint" id="bagHint">0 of 5 bags given</p></div>
+      </div>
+      <div class="chips">
+        <span class="chip"><b>How much?</b> 1 sa’ ≈ 2.5–3 kg of dates, barley or rice</span>
+        <span class="chip"><b>When?</b> Before the Eid prayer</span>
+        <span class="chip"><b>Why?</b> To clean our fast and to feed the poor</span>
+      </div>
+      <p class="src">Sunan Abi Dawud 1609</p>
+    </section>
+
+    <!-- 6 Morning -->
+    <section class="slide" data-id="morning" hidden>
+      <p class="eyebrow">Let’s copy the Prophet SAW</p>
+      <h2>The Sunnah of Eid Morning</h2>
+      <p class="lead">Can you put the Eid morning in the right order? Tap what comes first.</p>
+      <ol class="slots" id="slots"></ol>
+      <div class="pool" id="pool"></div>
+      <p class="reveal" id="morningDone" hidden>Masha’Allah! The Prophet SAW ate an odd number of dates before the prayer (Bukhari 953) and came home by a different road (Bukhari 986).</p>
+      <div class="btns"><button class="btn ghost" id="morningReset">Mix them up again</button></div>
+    </section>
+
+    <!-- 7 Takbir -->
+    <section class="slide" data-id="takbir" hidden>
+      <p class="eyebrow">Say it together!</p>
+      <h2>The Takbir</h2>
+      <div class="tk" id="tk"></div>
+      <div class="btns"><button class="btn" id="tkNext">Next line</button><button class="btn ghost" id="tkReset">Start again</button></div>
+      <p class="reveal" id="tkDone" hidden>“Allah is the Greatest. There is no god but Allah. Allah is the Greatest, and all praise belongs to Allah.” We say it because Allah told us to “glorify Allah for guiding you, and perhaps you will be grateful.” <span class="src">QS. Al-Baqarah 2:185</span></p>
+    </section>
+
+    <!-- 8 Fresh -->
+    <section class="slide" data-id="fresh" hidden>
+      <p class="eyebrow">Back to our fitrah</p>
+      <h2>Saying Sorry &amp; Starting Fresh</h2>
+      <p class="lead">Fitrah means our pure, clean nature. Whoever fasts Ramadan with faith gets their past sins forgiven <span class="src">(Bukhari 38)</span>. But mistakes with people, we fix ourselves. Tap each smudge to say sorry and clean the page!</p>
+      <div class="paper" id="paper"></div>
+      <div class="panel" id="greet" hidden>
+        <p class="eyebrow">Eid greeting</p>
+        <p class="ar" style="font-size:clamp(36px, 5vw, 54px)">تَقَبَّلَ اللهُ مِنَّا وَمِنْكُمْ</p>
+        <h3>Taqabbalallahu minna wa minkum</h3>
+        <p style="color:var(--soft)">“May Allah accept our good deeds and yours.” This is what the Sahabah said to each other on Eid. In Indonesia we also do <b>maaf-maafan</b>.</p>
+      </div>
+    </section>
+
+    <!-- 9 World -->
+    <section class="slide" data-id="world" hidden>
+      <p class="eyebrow">One Eid, many traditions</p>
+      <h2>Eid Around the World</h2>
+      <p class="hint" id="worldHint">0 of 5 opened</p>
+      <div class="flips" id="worldFlips"></div>
+      <p class="reveal">How does <b>your</b> family celebrate Eid? What is your favourite Eid food?</p>
+    </section>
+
+    <!-- 10 Spirit -->
+    <section class="slide" data-id="spirit" hidden>
+      <p class="eyebrow">Ramadan is over, but…</p>
+      <h2>Keep the Ramadan Spirit</h2>
+      <p class="lead">Fast 6 days in Syawal and it is like fasting the whole year! <span class="src">(Sahih Muslim 1164)</span> Tap each day to fill the moons.</p>
+      <div class="days" id="days"></div>
+      <p class="reveal" id="spiritDone" hidden>6 days done, like fasting a whole year. Masha’Allah!</p>
+      <h3 style="margin-top:6px">So, always keep going with:</h3>
+      <div class="habits">
+        <div class="habit">Reading the Qur’an</div><div class="habit">Praying on time</div><div class="habit">Sharing with others</div><div class="habit">Being kind and forgiving</div>
+      </div>
+    </section>
+
+    <!-- 11 Quiz -->
+    <section class="slide" data-id="quiz" hidden>
+      <p class="eyebrow">Quick quiz</p>
+      <h2>What did we learn?</h2>
+      <p class="qcount" id="qCount"></p>
+      <p class="q" id="qText"></p>
+      <div class="opts" id="qOpts"></div>
+      <p id="qFeedback" aria-live="polite"></p>
+      <div class="btns"><button class="btn" id="qNext" hidden>Next question</button></div>
+    </section>
+
+    <!-- 12 Closing -->
+    <section class="slide" data-id="end" hidden style="align-items:center;text-align:center">
+      <p class="eyebrow">Masha’Allah, well done!</p>
+      <h1 style="color:var(--gold)">Eid Mubarak!</h1>
+      <p class="big-stars" id="endStars">★ 0 of 15 stars</p>
+      <p class="ar" style="font-size:clamp(34px, 5vw, 50px)">تَقَبَّلَ اللهُ مِنَّا وَمِنْكُمْ</p>
+      <p class="lead">Taqabbalallahu minna wa minkum. See you next week!</p>
+      <div class="btns" style="justify-content:center"><button class="btn" id="again">Play again</button></div>
+    </section>
+
+    <div class="notes" id="notes" hidden><b>Teacher notes</b><p id="notesText"></p></div>
+  </main>
+
+  <nav class="nav" aria-label="Slides">
+    <button class="btn ghost" id="prev">← Back</button>
+    <div class="dots" id="dots"></div>
+    <span class="count" id="count">1 / 12</span>
+    <button class="btn" id="next">Next →</button>
+  </nav>
+</div>
+<canvas class="confetti" id="confetti" aria-hidden="true"></canvas>
+
+<script>
+(function(){
+const $ = (s, r=document) => r.querySelector(s);
+const slides = [...document.querySelectorAll('.slide')];
+let cur = 0;
+const stars = new Set();
+let soundOn = true;
+
+/* ---------- teacher notes (narration) ---------- */
+const NOTES = {
+  open:"Assalamu’alaikum everyone! Today, we’re going to learn about a day that all of us love: Idul Fitri, or Eid al-Fitr. Who here still remembers what they did on the last Eid?",
+  what:"So first, what is Idul Fitri? Idul Fitri is the day of celebration right after Ramadan ends. It falls on the 1st of Syawal. Eid comes from a word that means to return, a day that comes back to us every year. Fitr means to break the fast. After a whole month of fasting, we are finally allowed to eat during the day again! But it’s not only a day to eat. It is a day to thank Allah for helping us finish Ramadan.",
+  first:"Let’s go back to Madinah, about 1,400 years ago, in the 2nd year after the Hijrah. That was the year fasting in Ramadan was first made compulsory. The Prophet SAW saw that the people of Madinah had two days every year to play. He said: Allah has replaced them for you with two days that are better, the day of Adha and the day of Fitr. So Eid is a gift from Allah. Having fun on Eid is part of our religion! What are the two Eids that Allah gave us?",
+  moon:"The Islamic calendar follows the moon. A new month starts when we see the hilal, the very thin new crescent moon, after sunset. On the 29th night of Ramadan, people look at the sky. If the hilal is seen, tomorrow is Eid! If not, we fast one more day and Ramadan has 30 days. That is also why Eid in Indonesia and in Australia can be on different days. Has anyone ever tried to look for the new moon?",
+  zakat:"Before we celebrate, every Muslim family must pay Zakat al-Fitr. It is food we give to people who are poor, so they can celebrate Eid too. It is paid for every single Muslim, old or young, even a baby. In the time of the Prophet SAW it was one sa’ of food, about 2.5 to 3 kilograms. It must be given before the Eid prayer. It cleans our fast from bad or silly words, and it feeds the poor.",
+  morning:"What did the Prophet SAW do on the morning of Eid? Take a bath. Wear your best clothes. Eat an odd number of dates. Say the takbir on the way. Pray the Eid prayer together. Come home by a different road, so you meet and greet more people. Which of these did you already do last Eid?",
+  takbir:"On the night before Eid and on the way to the prayer, Muslims say the takbir. Allahu akbar, Allahu akbar, Allahu akbar. La ilaha illallah, wallahu akbar. Allahu akbar, wa lillahil hamd. Allah is the Greatest. There is no god but Allah. Allah is the Greatest, and all praise belongs to Allah. It is our way of thanking Allah for helping us finish Ramadan.",
+  fresh:"Idul Fitri is the day we return to our fitrah, our pure, clean nature. Whoever fasts Ramadan with faith, hoping for Allah’s reward, has their past sins forgiven. But mistakes with other people we fix ourselves. That’s why on Eid we say sorry to our parents, brothers, sisters and friends. We can say: Taqabbalallahu minna wa minkum, may Allah accept our good deeds and yours. Is there someone you want to say sorry to? Just think about it.",
+  world:"Muslims all over the world celebrate Eid in their own special way. In Indonesia it’s Lebaran, with mudik, ketupat and opor ayam. In Turkey it’s Şeker Bayramı, the Sugar Festival. In Egypt families bake kahk cookies. In Malaysia it’s Hari Raya, with open houses and duit raya. And here in Sydney, Muslims from many countries celebrate together. How does your family celebrate Eid?",
+  spirit:"Ramadan is over, but the good habits don’t have to stop. The Prophet SAW said that whoever fasts Ramadan and then six days of Syawal, it is as if they fasted the whole year. So keep reading the Qur’an, praying on time, sharing with others, and being kind and forgiving.",
+  quiz:"Let’s see what we remember! Read each question out loud and let the kids shout the answer before you tap.",
+  end:"And that is the story of Idul Fitri. Taqabbalallahu minna wa minkum, and Eid Mubarak in advance, everyone! Thank you. Wassalamu’alaikum warahmatullahi wabarakatuh."
+};
+
+/* ---------- sound ---------- */
+let ac;
+function tone(freqs, dur=.18, type='sine', vol=.12){
+  if(!soundOn) return;
+  try{
+    ac = ac || new (window.AudioContext||window.webkitAudioContext)();
+    freqs.forEach((f,i)=>{
+      const o=ac.createOscillator(), g=ac.createGain(), t=ac.currentTime+i*dur*.8;
+      o.type=type; o.frequency.value=f; g.gain.setValueAtTime(0,t); g.gain.linearRampToValueAtTime(vol,t+.02); g.gain.exponentialRampToValueAtTime(.001,t+dur*1.6);
+      o.connect(g).connect(ac.destination); o.start(t); o.stop(t+dur*1.7);
+    });
+  }catch(e){}
+}
+const ding = ()=>tone([784,1047,1319],.14,'triangle',.1);
+const pop  = ()=>tone([520],.08,'sine',.08);
+const buzz = ()=>tone([180],.15,'square',.04);
+
+/* ---------- stars ---------- */
+function award(key){
+  if(stars.has(key)) return;
+  stars.add(key); ding();
+  $('#starCount').textContent = stars.size;
+  $('#endStars').textContent = '★ ' + stars.size + ' of 15 stars';
+  confetti(40);
+}
+
+/* ---------- navigation ---------- */
+const dots = $('#dots');
+slides.forEach((s,i)=>{ const d=document.createElement('button'); d.className='dot'; d.setAttribute('aria-label','Go to slide '+(i+1)); d.onclick=()=>go(i); dots.appendChild(d); });
+function go(i){
+  i = Math.max(0, Math.min(slides.length-1, i));
+  stopReading();
+  slides[cur].hidden = true; cur = i; slides[cur].hidden = false;
+  $('#count').textContent = (cur+1)+' / '+slides.length;
+  [...dots.children].forEach((d,j)=>d.classList.toggle('on', j===cur));
+  $('#prev').disabled = cur===0; $('#next').disabled = cur===slides.length-1;
+  $('#notesText').textContent = NOTES[slides[cur].dataset.id] || '';
+  $('#stage').scrollTop = 0;
+  if(slides[cur].dataset.id==='end') confetti(160);
+}
+$('#prev').onclick=()=>go(cur-1);
+$('#next').onclick=()=>go(cur+1);
+document.querySelectorAll('[data-go="next"]').forEach(b=>b.onclick=()=>go(cur+1));
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key==='PageDown'){ go(cur+1); e.preventDefault(); }
+  if(e.key==='ArrowLeft'||e.key==='PageUp'){ go(cur-1); e.preventDefault(); }
+  if(e.key==='f'||e.key==='F'){ $('#fsBtn').click(); }
+});
+
+/* ---------- tools ---------- */
+$('#soundBtn').onclick=e=>{ soundOn=!soundOn; e.currentTarget.setAttribute('aria-pressed',soundOn); e.currentTarget.textContent = soundOn?'Sound on':'Sound off'; };
+$('#notesBtn').onclick=e=>{ const n=$('#notes'); n.hidden=!n.hidden; e.currentTarget.setAttribute('aria-pressed',!n.hidden); };
+function fsHelp(){
+  let t=document.getElementById('fsHelp');
+  if(!t){
+    t=document.createElement('div'); t.id='fsHelp'; t.setAttribute('role','status');
+    t.style.cssText='position:fixed;left:50%;bottom:84px;transform:translateX(-50%);z-index:60;max-width:min(560px,92vw);background:#fffdf8;color:#2b2320;border:1px solid rgba(0,0,0,.14);border-radius:16px;box-shadow:0 12px 34px rgba(0,0,0,.25);padding:14px 16px;font:15px/1.45 system-ui,sans-serif;display:flex;gap:12px;align-items:flex-start';
+    const self=/^https?:/.test(location.href) && window.top!==window ? location.href.split('#')[0] : '';
+    t.innerHTML='<div style="flex:1"><b>Full screen is blocked here.</b> This happens when the lesson is shown inside another page, like Google Sites. '
+      +(self?'<a href="'+self+'" target="_blank" rel="noopener" style="color:#C8901C;font-weight:700">Open the lesson in its own tab</a> and press Full screen there, or press ':'Press ')
+      +'<b>F11</b> (Windows) or <b>Ctrl + Cmd + F</b> (Mac).</div>'
+      +'<button type="button" aria-label="Close" style="border:0;background:transparent;font-size:20px;line-height:1;cursor:pointer;color:#555">×</button>';
+    t.querySelector('button').addEventListener('click',()=>{ t.hidden=true; });
+    document.body.appendChild(t);
+  }
+  t.hidden=false; clearTimeout(t._h); t._h=setTimeout(()=>{ t.hidden=true; },12000);
+}
+$('#fsBtn').onclick=()=>{
+  const el=document.documentElement;
+  try{ if(document.fullscreenElement){ document.exitFullscreen().catch(()=>{}); return; } }catch(e){}
+  if(!document.fullscreenEnabled || !el.requestFullscreen){ fsHelp(); return; }
+  try{ const p=el.requestFullscreen(); if(p&&p.catch) p.catch(()=>fsHelp()); }catch(e){ fsHelp(); }
+};
+function stopReading(){ try{ speechSynthesis.cancel(); }catch(e){} $('#readBtn').setAttribute('aria-pressed','false'); }
+$('#readBtn').onclick=e=>{
+  try{
+    if(speechSynthesis.speaking){ stopReading(); return; }
+    const u=new SpeechSynthesisUtterance(NOTES[slides[cur].dataset.id]||''); u.lang='en-AU'; u.rate=.92;
+    u.onend=()=>$('#readBtn').setAttribute('aria-pressed','false');
+    speechSynthesis.speak(u); e.currentTarget.setAttribute('aria-pressed','true');
+  }catch(err){}
+};
+
+/* ---------- 1 lanterns ---------- */
+const lanternSVG = `<svg viewBox="0 0 100 200" aria-hidden="true"><line x1="50" y1="0" x2="50" y2="30" stroke="#E9B949" stroke-width="3"/><circle cx="50" cy="34" r="6" fill="#E9B949"/><path d="M28,40 L72,40 L84,64 L16,64 Z" fill="#E9B949"/><rect class="glass" x="16" y="64" width="68" height="90" rx="12"/><rect class="win" x="28" y="74" width="44" height="70" rx="22"/><line x1="50" y1="74" x2="50" y2="144" stroke="#C8901C" stroke-width="3"/><path d="M16,154 L84,154 L68,172 L32,172 Z" fill="#E9B949"/><path d="M45,172 L55,172 L50,194 Z" fill="#E9B949"/></svg>`;
+function buildLanterns(){
+  const box=$('#lanterns'); box.innerHTML='';
+  for(let i=0;i<3;i++){
+    const b=document.createElement('button'); b.className='lantern'; b.innerHTML=lanternSVG; b.setAttribute('aria-label','Light lantern '+(i+1));
+    b.onclick=()=>{ b.classList.toggle('lit'); pop(); const n=box.querySelectorAll('.lit').length; $('#lanternHint').textContent=n+' of 3 lanterns lit'; if(n===3) award('lanterns'); };
+    box.appendChild(b);
+  }
+  $('#lanternHint').textContent='0 of 3 lanterns lit';
+}
+
+/* ---------- 2 flip cards ---------- */
+function wireFlips(box, onAll, hintEl, label){
+  const cards=[...box.querySelectorAll('.flip')];
+  cards.forEach(c=>c.onclick=()=>{ c.classList.toggle('open'); c.dataset.seen='1'; pop();
+    const seen=cards.filter(x=>x.dataset.seen).length;
+    if(hintEl) hintEl.textContent = seen+' of '+cards.length+' '+label;
+    if(seen===cards.length) onAll(); });
+}
+wireFlips($('#nameFlips'), ()=>{ $('#whatDone').hidden=false; award('flip'); });
+
+/* ---------- 3 dialogue ---------- */
+const FIRST = [
+  {who:'narrator',label:'Story',t:'About 1,400 years ago, the Prophet SAW arrived in Madinah.'},
+  {who:'narrator',label:'Story',t:'He saw that the people there had two days every year just for playing and having fun.'},
+  {who:'prophet',label:'The Prophet SAW asked',t:'“What are these two days?”'},
+  {who:'people',label:'The people of Madinah',t:'“We used to play on these days in the time of Jahiliyah.”'},
+  {who:'prophet',label:'The Prophet SAW said',t:'“Allah has replaced them for you with two days that are better: the day of Adha and the day of Fitr.”',ar:'قَدْ أَبْدَلَكُمُ اللَّهُ بِهِمَا خَيْرًا مِنْهُمَا: يَوْمَ الأَضْحَى وَيَوْمَ الْفِطْرِ'},
+  {who:'narrator',label:'Story',t:'That was the 2nd year after the Hijrah, the first year Muslims fasted in Ramadan. Eid is a gift from Allah! (Sunan Abi Dawud 1134)'}
+];
+let fi=0;
+function firstStep(){
+  if(fi>=FIRST.length) return;
+  const l=FIRST[fi++], d=document.createElement('div');
+  d.className='line '+l.who;
+  d.innerHTML='<span class="who"></span><span class="t"></span>'+(l.ar?'<span class="ar"></span>':'');
+  d.querySelector('.who').textContent=l.label; d.querySelector('.t').textContent=l.t; if(l.ar) d.querySelector('.ar').textContent=l.ar;
+  $('#firstLines').appendChild(d); pop();
+  if(fi===FIRST.length){ $('#firstNext').disabled=true; award('first'); }
+}
+function firstReset(){ fi=0; $('#firstLines').innerHTML=''; $('#firstNext').disabled=false; firstStep(); }
+$('#firstNext').onclick=firstStep; $('#firstReset').onclick=firstReset;
+
+/* ---------- 4 moon ---------- */
+const cloudSVG='<svg viewBox="0 0 170 90" aria-hidden="true"><g fill="#DCE7E3"><circle cx="50" cy="55" r="30"/><circle cx="88" cy="40" r="36"/><circle cx="125" cy="56" r="28"/><rect x="40" y="55" width="100" height="30" rx="15"/></g></svg>';
+const hilalSVG='<svg class="hilal" viewBox="0 0 60 60" aria-label="The hilal, a thin crescent moon"><defs><mask id="hm"><rect width="60" height="60" fill="#fff"/><circle cx="36" cy="26" r="24" fill="#000"/></mask></defs><circle cx="30" cy="30" r="26" fill="#F2C14E" mask="url(#hm)"/></svg>';
+const SPOTS=[[18,30],[42,22],[66,34],[86,24],[32,56],[58,58],[80,55]];
+function buildSky(){
+  const sky=$('#sky'); sky.querySelectorAll('.cloud,.hilal').forEach(n=>n.remove());
+  $('#skyMsg').textContent='Where is the hilal?';
+  const hi=Math.floor(Math.random()*SPOTS.length);
+  sky.insertAdjacentHTML('beforeend',hilalSVG);
+  const h=sky.querySelector('.hilal'); h.style.left=SPOTS[hi][0]+'%'; h.style.top=SPOTS[hi][1]+'%';
+  SPOTS.forEach(([x,y],i)=>{
+    const c=document.createElement('button'); c.className='cloud'; c.innerHTML=cloudSVG; c.style.left=x+'%'; c.style.top=y+'%';
+    c.setAttribute('aria-label','Move cloud '+(i+1));
+    c.onclick=()=>{ c.classList.add('gone'); if(i===hi){ $('#skyMsg').textContent='Hilal seen! Tomorrow is Eid!'; award('moon'); } else { pop(); } };
+    sky.appendChild(c);
+  });
+}
+$('#cloudyBtn').onclick=()=>{ $('#cloudyAns').hidden=false; pop(); };
+$('#skyReset').onclick=buildSky;
+
+/* ---------- 5 zakat ---------- */
+const FAMILY=['Ayah','Ibu','Kakak','Me','Baby'];
+const bagSVG='<svg viewBox="0 0 64 76" aria-hidden="true"><path d="M14,18 Q32,6 50,18 L58,66 Q32,78 6,66 Z" fill="#E8D5A8"/><path d="M14,18 Q32,26 50,18" stroke="#B89B5E" stroke-width="3" fill="none"/><rect x="22" y="10" width="20" height="8" rx="3" fill="#B89B5E"/><text x="32" y="52" text-anchor="middle" font-size="12" font-weight="700" fill="#7A5E22" font-family="Arial">rice</text></svg>';
+function buildBags(){
+  const pool=$('#bagPool'), basket=$('#bagBasket'); pool.innerHTML=''; basket.innerHTML='';
+  $('#bagHint').textContent='0 of 5 bags given';
+  FAMILY.forEach(name=>{
+    const b=document.createElement('button'); b.className='bag'; b.innerHTML=bagSVG+'<span></span>'; b.querySelector('span').textContent=name;
+    b.setAttribute('aria-label','Give the bag for '+name);
+    b.onclick=()=>{ basket.appendChild(b); pop(); const n=basket.children.length; $('#bagHint').textContent = n===5 ? 'All 5 given! Every person counts, even the baby.' : n+' of 5 bags given'; if(n===5) award('zakat'); };
+    pool.appendChild(b);
+  });
+}
+
+/* ---------- 6 order game ---------- */
+const STEPS=['Take a bath','Wear your best clothes','Eat dates first','Say the takbir','Pray the Eid prayer','Take a different road home'];
+let nextStep=0;
+function buildOrder(){
+  nextStep=0; $('#morningDone').hidden=true;
+  const slots=$('#slots'); slots.innerHTML='';
+  STEPS.forEach((s,i)=>{ const li=document.createElement('li'); li.className='slot'; li.innerHTML='<span class="n">'+(i+1)+'</span><span></span>'; slots.appendChild(li); });
+  const pool=$('#pool'); pool.innerHTML='';
+  const mix=STEPS.map((s,i)=>i).sort(()=>Math.random()-.5);
+  mix.forEach(i=>{
+    const b=document.createElement('button'); b.className='pick'; b.textContent=STEPS[i];
+    b.onclick=()=>{
+      if(i===nextStep){ const li=slots.children[i]; li.classList.add('filled'); li.lastChild.textContent=STEPS[i]; b.remove(); pop(); nextStep++;
+        if(nextStep===STEPS.length){ $('#morningDone').hidden=false; award('morning'); } }
+      else { b.classList.remove('wrong'); void b.offsetWidth; b.classList.add('wrong'); buzz(); }
+    };
+    pool.appendChild(b);
+  });
+}
+$('#morningReset').onclick=buildOrder;
+
+/* ---------- 7 takbir ---------- */
+const TK=[
+  {ar:'اللهُ أَكْبَرُ، اللهُ أَكْبَرُ، اللهُ أَكْبَرُ',tr:'Allahu akbar, Allahu akbar, Allahu akbar'},
+  {ar:'لَا إِلٰهَ إِلَّا اللهُ، وَاللهُ أَكْبَرُ',tr:'La ilaha illallah, wallahu akbar'},
+  {ar:'اللهُ أَكْبَرُ وَلِلّٰهِ الْحَمْدُ',tr:'Allahu akbar, wa lillahil hamd'}
+];
+let ti=0;
+function buildTakbir(){
+  ti=0; $('#tkDone').hidden=true; $('#tkNext').disabled=false; $('#tkNext').textContent='Next line';
+  const box=$('#tk'); box.innerHTML='';
+  TK.forEach(l=>{ const d=document.createElement('div'); d.className='tk-line'; d.innerHTML='<span class="ar"></span><span class="tr"></span>'; d.querySelector('.ar').textContent=l.ar; d.querySelector('.tr').textContent=l.tr; box.appendChild(d); });
+}
+$('#tkNext').onclick=()=>{
+  const lines=$('#tk').children;
+  if(ti<TK.length){ lines[ti].classList.add('on'); ti++; tone([440+ti*110],.2,'triangle',.08); }
+  if(ti===TK.length){ $('#tkNext').textContent='Now all together!'; $('#tkNext').disabled=true; $('#tkDone').hidden=false; award('takbir'); }
+};
+$('#tkReset').onclick=buildTakbir;
+
+/* ---------- 8 fresh page ---------- */
+const SMUDGES=['Was grumpy','Didn’t share','Shouted at my brother','Broke a promise','Didn’t listen to Ibu'];
+function buildPaper(){
+  const p=$('#paper'); p.innerHTML=''; $('#greet').hidden=true;
+  SMUDGES.forEach(s=>{ const b=document.createElement('button'); b.className='smudge'; b.textContent=s; b.setAttribute('aria-label','Say sorry for: '+s);
+    b.onclick=()=>{ b.classList.add('gone'); pop(); if(p.querySelectorAll('.smudge:not(.gone)').length===0){ setTimeout(()=>{ p.innerHTML='<p class="clean">A fresh, clean page! Back to our fitrah.</p>'; $('#greet').hidden=false; award('fresh'); },450); } };
+    p.appendChild(b); });
+}
+
+/* ---------- 9 world ---------- */
+const WORLD=[
+  ['Indonesia','Lebaran','Mudik to our hometowns, then ketupat and opor ayam!'],
+  ['Turkey','Şeker Bayramı','The “Sugar Festival”: lots of sweets shared with everyone.'],
+  ['Egypt','Kahk','Families bake special Eid cookies together.'],
+  ['Malaysia','Hari Raya','Open houses, and duit raya in little green envelopes.'],
+  ['Sydney','Right here!','Muslims from many countries pray and celebrate together.']
+];
+(function(){
+  const box=$('#worldFlips');
+  WORLD.forEach(([c,n,t])=>{
+    const b=document.createElement('button'); b.className='flip small'; b.setAttribute('aria-label','Flip the card for '+c);
+    b.innerHTML='<div class="in"><div class="face front"><h3></h3><p class="tap">Tap to see</p></div><div class="face back"><h3></h3><p></p></div></div>';
+    b.querySelector('.front h3').textContent=c; b.querySelector('.back h3').textContent=c+': '+n; b.querySelector('.back p').textContent=t;
+    box.appendChild(b);
+  });
+  wireFlips(box, ()=>award('world'), $('#worldHint'), 'opened');
+})();
+
+/* ---------- 10 syawal ---------- */
+function buildDays(){
+  const box=$('#days'); box.innerHTML=''; $('#spiritDone').hidden=true;
+  for(let i=1;i<=6;i++){ const b=document.createElement('button'); b.className='day'; b.textContent='Day '+i;
+    b.onclick=()=>{ b.classList.toggle('done'); pop(); if(box.querySelectorAll('.done').length===6){ $('#spiritDone').hidden=false; award('spirit'); } };
+    box.appendChild(b); }
+}
+
+/* ---------- 11 quiz ---------- */
+const QUIZ=[
+  ['What does “Fitr” mean?',['To break the fast','To go to sleep','To travel far'],0],
+  ['When do we give Zakat al-Fitr?',['After Eid lunch','Before the Eid prayer','Next Ramadan'],1],
+  ['What do we look for in the sky to know Eid has come?',['A rainbow','The sun','The hilal, a thin new moon'],2],
+  ['What did the Prophet SAW eat before the Eid prayer?',['An odd number of dates','Ketupat','Nothing at all'],0],
+  ['What do we say to each other on Eid?',['Good night!','Taqabbalallahu minna wa minkum','Happy birthday!'],1]
+];
+let qi=0, qMissed=false;
+function showQ(){
+  const [q,opts,ans]=QUIZ[qi]; qMissed=false;
+  $('#qCount').textContent='Question '+(qi+1)+' of '+QUIZ.length;
+  $('#qText').textContent=q; $('#qFeedback').textContent=''; $('#qNext').hidden=true;
+  const box=$('#qOpts'); box.innerHTML='';
+  opts.forEach((o,i)=>{ const b=document.createElement('button'); b.className='opt'; b.textContent=o;
+    b.onclick=()=>{
+      if(i===ans){ b.classList.add('right'); box.querySelectorAll('.opt').forEach(x=>x.disabled=true);
+        $('#qFeedback').innerHTML='<span class="good">Correct!</span>'; if(!qMissed) award('q'+qi);
+        $('#qNext').hidden=false; $('#qNext').textContent = qi<QUIZ.length-1 ? 'Next question' : 'See my stars'; }
+      else { b.classList.add('no'); b.disabled=true; qMissed=true; buzz(); $('#qFeedback').textContent='Not quite, try again!'; }
+    };
+    box.appendChild(b); });
+}
+$('#qNext').onclick=()=>{ if(qi<QUIZ.length-1){ qi++; showQ(); } else go(slides.length-1); };
+
+/* ---------- confetti ---------- */
+const cv=$('#confetti'), cx=cv.getContext('2d'); let parts=[], raf=0;
+const reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+function confetti(n){
+  if(reduce) return;
+  cv.width=innerWidth; cv.height=innerHeight;
+  const cols=['#F2C14E','#7FD1B0','#FBF6EA','#F28C6B'];
+  for(let i=0;i<n;i++) parts.push({x:Math.random()*cv.width,y:-20-Math.random()*cv.height*.3,vx:(Math.random()-.5)*3,vy:2+Math.random()*3,r:Math.random()*6.28,s:5+Math.random()*7,c:cols[i%4],star:Math.random()<.35});
+  if(!raf) loop();
+}
+function loop(){
+  cx.clearRect(0,0,cv.width,cv.height);
+  parts.forEach(p=>{ p.x+=p.vx; p.y+=p.vy; p.r+=.08; cx.save(); cx.translate(p.x,p.y); cx.rotate(p.r); cx.fillStyle=p.c;
+    if(p.star){ cx.beginPath(); for(let k=0;k<8;k++){ const rr=k%2?p.s*.35:p.s; cx.lineTo(Math.cos(k*Math.PI/4)*rr, Math.sin(k*Math.PI/4)*rr);} cx.fill(); }
+    else cx.fillRect(-p.s/2,-p.s/4,p.s,p.s/2);
+    cx.restore(); });
+  parts=parts.filter(p=>p.y<cv.height+30);
+  raf = parts.length ? requestAnimationFrame(loop) : (cx.clearRect(0,0,cv.width,cv.height), 0);
+}
+
+/* ---------- reset all ---------- */
+function resetAll(){
+  stars.clear(); $('#starCount').textContent='0'; $('#endStars').textContent='★ 0 of 15 stars';
+  buildLanterns(); firstReset(); buildSky(); buildBags(); buildOrder(); buildTakbir(); buildPaper(); buildDays();
+  document.querySelectorAll('.flip').forEach(f=>{ f.classList.remove('open'); delete f.dataset.seen; });
+  $('#whatDone').hidden=true; $('#cloudyAns').hidden=true; $('#worldHint').textContent='0 of 5 opened';
+  qi=0; showQ();
+}
+$('#again').onclick=()=>{ resetAll(); go(0); };
+
+resetAll();
+go(0);
+})();
+</script>
+</body>
+</html>
